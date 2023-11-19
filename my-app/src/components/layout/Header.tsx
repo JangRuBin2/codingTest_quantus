@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Logo from '../images/titleLogo.png';
 const Header = () : JSX.Element => {
   return (<div className="header_container">
@@ -27,13 +28,27 @@ const Header = () : JSX.Element => {
         <div>
           <nav>
             <ul>
-              <li>백 테스트</li>
-              <li>자산 배분</li>
-              <li>포토폴리오 추출</li>
-              <li>실전 투자</li>
-              <li>전략 예시</li>
-              <li>사용권 구매</li>
-              <li>파트너십</li>
+              <li>
+              <Link to="/test1">백 테스트</Link>
+              </li>
+              <li>
+              <Link to="/test1">자산 배분</Link>
+              </li>
+              <li>
+              <Link to="/test1">포토폴리오 추출</Link>
+              </li>
+              <li>
+              <Link to="/test1">실전 투자</Link>
+              </li>
+              <li>
+              <Link to="/test1">전략 예시</Link>
+              </li>
+              <li>
+              <Link to="/test1">사용권 구매</Link>
+              </li>
+              <li>
+              <Link to="/test1">파트너십</Link>
+              </li>
             </ul>
           </nav>
         </div>
