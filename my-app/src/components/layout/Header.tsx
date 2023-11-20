@@ -2,10 +2,16 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../images/titleLogo.png';
 const Header = () : JSX.Element => {
+  // 배너 state
+  const [bannerState, setBannerState] = useState(true);
   // li태그 className변경에 사용하기 위한 state
   const [activeLink, setActiveLink] = useState('/others');
   // 초급, 중급, 고급 버튼 className변경에 사용하기 위한 state
   const [levelBtnState, setLevelBtnState] = useState('easy');
+  // 배너를 닫기 위한 함수
+  const bannerClose = () => {
+    setBannerState(false);
+  }
   // li태그 class변경에 사용하기 위한 함수
   const changeClassName = (to: string) => {
     setActiveLink(to);
@@ -21,12 +27,19 @@ const Header = () : JSX.Element => {
   return (<div className='css-crgeb6'>
     <div className='ss-1ago99h'>
       {/* 상단 영역 */}
-      <div className='css-1e2pywg'>
+      {bannerState && (<div className='css-1e2pywg'>
         <div className='css-h4ylub'>
-          <div className='text_wrap'>제 1회 한국퀀트 챔피언십 개최합니다!!</div>
-          <div className='img_wrap'><img src="https://www.quantus.kr/static/media/bannerClick.fddcebe1e55feacf35c7ffb413be7bd2.svg" alt="link"/></div>
+          <div className='text_wrap'>
+            <div>제 1회 한국퀀트 챔피언십 개최합니다!!</div>
+            <div className='img_wrap'>
+              <img src="https://www.quantus.kr/static/media/bannerClick.fddcebe1e55feacf35c7ffb413be7bd2.svg" alt="link"/>
+            </div>
+          </div>
+          <div className='close_btn' onClick={bannerClose}>
+            <img src="https://quantus.kr/static/media/close.07f49c968bc3e6f2992869fcb645f8db.svg" alt="close" />
+          </div>
         </div>
-      </div>
+      </div>)}
       {/* 중단 영역 */}
       <div className='css-j1yknm'>
         <div className='css-jhvj32'>
