@@ -3,18 +3,17 @@ import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Footer from './components/layout/Footer';
 import Header from './components/layout/Header';
 import Main from './components/layout/Main';
-import Test1 from './test1';
-import Test2 from './test2';
+import Test1 from './components/pages/test1';
+import Test2 from './components/pages/test2';
 
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/test1" element={<Test1 />} />
-        <Route path="/test2" element={<Test2 />} />
-      </Routes>
       <Header />
-      <Main />
+      <Routes>
+        <Route path="/alloc" element={<Main><Test1 /></Main>} />
+        <Route path="/others" element={<Main><Test2 /></Main>} />
+      </Routes>
       <Footer />
     </Router>
   );

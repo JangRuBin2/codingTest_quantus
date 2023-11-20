@@ -29,25 +29,25 @@ const Header = () : JSX.Element => {
           <nav>
             <ul>
               <li>
-              <Link to="/test1">백 테스트</Link>
+              <Link to="/others">백 테스트</Link>
               </li>
               <li>
-              <Link to="/test1">자산 배분</Link>
+              <Link to="/alloc">자산 배분</Link>
               </li>
               <li>
-              <Link to="/test1">포토폴리오 추출</Link>
+              <Link to="/others">포토폴리오 추출</Link>
               </li>
               <li>
-              <Link to="/test1">실전 투자</Link>
+              <Link to="/others">실전 투자</Link>
               </li>
               <li>
-              <Link to="/test1">전략 예시</Link>
+              <Link to="/others">전략 예시</Link>
               </li>
               <li>
-              <Link to="/test1">사용권 구매</Link>
+              <Link to="/others">사용권 구매</Link>
               </li>
               <li>
-              <Link to="/test1">파트너십</Link>
+              <Link to="/others">파트너십</Link>
               </li>
             </ul>
           </nav>
