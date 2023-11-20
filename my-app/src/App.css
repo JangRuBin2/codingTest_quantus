@@ -36,3 +36,169 @@
     transform: rotate(360deg);
   }
 }
+/* 가져온 스타일 */
+.css-10qbdmk {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 1020px;
+}
+/* 헤더_상단 */
+.css-crgeb6 {
+  background: rgb(14, 14, 14);
+  width: 100%;
+  position: sticky;
+  left: 0px;
+  top: 0px;
+  z-index: 99;
+}
+.css-1ago99h {
+  width: 100%;
+}
+.css-1e2pywg {
+  cursor: pointer;
+  width: 100vw;
+  min-width: 1020px;
+  height: 44px;
+  z-index: 2;
+  background: rgb(236, 38, 38);
+  padding-top: 8px;
+  color: rgb(14, 14, 14);
+  font-size: 18px;
+  font-weight: 600;
+}
+/* 헤더_중단 */
+.css-j1yknm {
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  border-bottom: 1px solid rgb(30, 30, 30);
+}
+.css-jhvj32 {
+  width: 1020px;
+  height: 85px;
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  align-items: center;
+}
+.css-jhvj32 .logo {
+  width: 156px;
+  cursor: pointer;
+}
+.css-1gf2x3a {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+}
+.css-ov1ktg {
+  display: flex;
+}
+.css-kenvdg {
+  margin-right: 32px;
+  margin-top: 8px;
+  display: flex;
+  text-align: center;
+  width: 211px;
+  height: 30px;
+  border-radius: 35px;
+  background-color: rgb(30, 30, 30);
+}
+.css-kenvdg div {
+  width: 33.3%;
+  height: 30px;
+  border-radius: 35px;
+  font-size: 14px;
+  font-weight: 300;
+  padding-top: 4px;
+}
+.css-1h5x3dy {
+  cursor: pointer;
+}
+.css-kenvdg .advanced {
+  font-size: 14px;
+  font-weight: 500;
+  color: black;
+  padding-top: 4px;
+  border-radius: 35px;
+  background-color: rgb(236, 38, 38);
+}
+.css-kenvdg div {
+  width: 33.3%;
+  height: 30px;
+  border-radius: 35px;
+  font-size: 14px;
+  font-weight: 300;
+  padding-top: 4px;
+}
+/* 헤더_하단 */
+.css-d2epat {
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  min-width: 1020px;
+  z-index: -1;
+}
+.css-ocv3tk {
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid rgb(30, 30, 30);
+}
+.css-v4mbwx {
+  width: 1020px;
+}
+/* nav바 */
+.css-18sjzx1 {
+  width: 1020px;
+  height: 52px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  z-index: 99;
+}
+/* nav_ul */
+.css-h57cwe {
+  display: flex;
+  padding: 0px;
+}
+/* nav_li - 클릭 후*/
+.css-bibrta {
+  position: relative;
+  height: 24px;
+  margin-right: 55px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 400;
+  color: rgb(236, 38, 38);
+  cursor: pointer;
+}
+/* nav_li - 클릭 전 */
+.css-16mln42 {
+  position: relative;
+  height: 24px;
+  margin-right: 55px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 400;
+  color: rgb(252, 252, 252);
+  cursor: pointer;
+}
