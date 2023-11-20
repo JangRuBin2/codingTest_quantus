@@ -229,3 +229,76 @@ a {
   text-decoration: none; /* 밑줄 제거 */
   color: inherit;
 }
+/* 메인 */
+.css-ov1ktg {
+  display: flex;
+}
+/* 메인_ 좌측 */
+.css-boa882 {
+  position: sticky;
+  height: 100%;
+  top: 0px;
+}
+/* 메인_ 중앙 (콘텐츠 들어갈 부분)*/
+.css-1v1xjc8 {
+  width: 1020px;
+}
+.css-10000pf {
+  background: rgb(14, 14, 14);
+  position: relative;
+}
+.css-1hkbw9e {
+  min-height: 810px;
+  z-index: 3;
+  position: relative;
+}
+/* 메인_ 우측 */
+.css-boa882 {
+  position: sticky;
+  height: 100%;
+  top: 0px;
+}
+/* 푸터 */
+.css-1c6t4tg {
+  display: flex;
+  width: 100%;
+  background: rgb(0, 0, 0);
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+}
+.css-v4mbwx {
+  width: 1020px;
+}
+.css-1yzjtqd {
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+}
+.css-1yzjtqd div {
+  margin-top: 50px;
+}
+.css-7360bc {
+  position: relative;
+  height: 100%;
+  margin-top: 50px;
+  display: flex;
+  gap: 32px;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  align-items: center;
+}
+.css-1yzjtqd .title {
+  margin-top: 28px;
+  font-size: 16px;
+  font-weight: 500;
+}
+.css-1yzjtqd p {
+  color: rgb(159, 159, 159);
+}
+.css-1yzjtqd .right_text {
+  margin: 28px 0px 50px;
+  color: rgb(110, 110, 110);
+}
