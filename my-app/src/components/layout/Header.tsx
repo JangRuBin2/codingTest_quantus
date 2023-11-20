@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../images/titleLogo.png';
 const Header = () : JSX.Element => {
-  // ul태그 class변경에 사용하기 위한 state
+  // li태그 class변경에 사용하기 위한 state
   const [activeLink, setActiveLink] = useState('/others');
-  // ul태그 class변경에 사용하기 위한 함수
-  const handleLinkClick = (to: string) => {
+  // li태그 class변경에 사용하기 위한 함수
+  const changeClass = (to: string) => {
     setActiveLink(to);
   };
   return (<div className='css-crgeb6'>
@@ -39,42 +39,46 @@ const Header = () : JSX.Element => {
         <div className='css-ocv3tk'>
           <nav className='css-18sjzx1'>
             <ul className='css-h57cwe'>
+            <Link to="/backtest" onClick={() => changeClass('/backtest')}>
               <li className={activeLink === '/backtest' ? 'css-bibrta' : 'css-16mln42'}>
-                <Link to="/backtest" onClick={() => handleLinkClick('/backtest')}>
-                백 테스트
-                </Link>
+              백 테스트
               </li>
+              </Link>
               <li className={activeLink === '/alloc' ? 'css-bibrta' : 'css-16mln42'}>
-                <Link to="/alloc" onClick={() => handleLinkClick('/alloc')}>
+                <Link to="/alloc" onClick={() => changeClass('/alloc')}>
                 자산 배분
                 </Link>
               </li>
               <li className={activeLink === '/port' ? 'css-bibrta' : 'css-16mln42'}>
-                <Link to="/port" onClick={() => handleLinkClick('/port')}>
+                <Link to="/port" onClick={() => changeClass('/port')}>
                 포토폴리오 추출
                 </Link>
               </li>
               <li className={activeLink === '/invest' ? 'css-bibrta' : 'css-16mln42'}>
-                <Link to="/invest" onClick={() => handleLinkClick('/invest')}>
+                <Link to="/invest" onClick={() => changeClass('/invest')}>
                 실전 투자
                 </Link>
               </li>
               <li className={activeLink === '/strategy' ? 'css-bibrta' : 'css-16mln42'}>
-                <Link to="/strategy" onClick={() => handleLinkClick('/strategy')}>
+                <Link to="/strategy" onClick={() => changeClass('/strategy')}>
                 전략 예시
                 </Link>
               </li>
               <li className={activeLink === '/products' ? 'css-bibrta' : 'css-16mln42'}>
-                <Link to="/products" onClick={() => handleLinkClick('/products')}>
+                <Link to="/products" onClick={() => changeClass('/products')}>
                 사용권 구매
                 </Link>
               </li>
               <li className={activeLink === '/partnership' ? 'css-bibrta' : 'css-16mln42'}>
-                <Link to="/partnership" onClick={() => handleLinkClick('/partnership')}>
+                <Link to="/partnership" onClick={() => changeClass('/partnership')}>
                 파트너십
                 </Link>
               </li>
             </ul>
+            <div className='css-12hft1s'>
+              <img src="	https://www.quantus.kr/static/media/newNotice.a8a37ea207d96eed07258fc1448ff7dd.svg" alt="공지사항" />
+              <p>공지사항</p>
+            </div>
           </nav>
         </div>
         <div className='css-v4mbwx'></div>

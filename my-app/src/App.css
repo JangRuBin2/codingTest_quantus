@@ -202,3 +202,17 @@
   color: rgb(252, 252, 252);
   cursor: pointer;
 }
+.css-12hft1s {
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+}
+/* Link태그 밑줄 제거 */
+.link-no-underline {
+  text-decoration: none;
+  color: inherit;
+}
+a {
+  text-decoration: none; /* 밑줄 제거 */
+  color: inherit;
+}
