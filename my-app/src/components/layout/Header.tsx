@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import Logo from '../images/titleLogo.png';
 const Header = () : JSX.Element => {
   // ul태그 class변경에 사용하기 위한 state
-  const [active_li_Class, setActive_li_Class] = useState('css-bibrta');
+  const [activeLink, setActiveLink] = useState('/others');
   // ul태그 class변경에 사용하기 위한 함수
-  const handleNavClick = () => {
-    setActive_li_Class(active_li_Class === 'css-bibrta' ? 'css-16mln42' : 'css-bibrta');
+  const handleLinkClick = (to: string) => {
+    setActiveLink(to);
   };
   return (<div className='css-crgeb6'>
     <div className='ss-1ago99h'>
@@ -39,26 +39,40 @@ const Header = () : JSX.Element => {
         <div className='css-ocv3tk'>
           <nav className='css-18sjzx1'>
             <ul className='css-h57cwe'>
-              <li className={active_li_Class} onClick={handleNavClick}>
-              <Link to="/others">백 테스트</Link>
+              <li className={activeLink === '/backtest' ? 'css-bibrta' : 'css-16mln42'}>
+                <Link to="/backtest" onClick={() => handleLinkClick('/backtest')}>
+                백 테스트
+                </Link>
               </li>
-              <li>
-              <Link to="/alloc">자산 배분</Link>
+              <li className={activeLink === '/alloc' ? 'css-bibrta' : 'css-16mln42'}>
+                <Link to="/alloc" onClick={() => handleLinkClick('/alloc')}>
+                자산 배분
+                </Link>
               </li>
-              <li>
-              <Link to="/others">포토폴리오 추출</Link>
+              <li className={activeLink === '/port' ? 'css-bibrta' : 'css-16mln42'}>
+                <Link to="/port" onClick={() => handleLinkClick('/port')}>
+                포토폴리오 추출
+                </Link>
               </li>
-              <li>
-              <Link to="/others">실전 투자</Link>
+              <li className={activeLink === '/invest' ? 'css-bibrta' : 'css-16mln42'}>
+                <Link to="/invest" onClick={() => handleLinkClick('/invest')}>
+                실전 투자
+                </Link>
               </li>
-              <li>
-              <Link to="/others">전략 예시</Link>
+              <li className={activeLink === '/strategy' ? 'css-bibrta' : 'css-16mln42'}>
+                <Link to="/strategy" onClick={() => handleLinkClick('/strategy')}>
+                전략 예시
+                </Link>
               </li>
-              <li>
-              <Link to="/others">사용권 구매</Link>
+              <li className={activeLink === '/products' ? 'css-bibrta' : 'css-16mln42'}>
+                <Link to="/products" onClick={() => handleLinkClick('/products')}>
+                사용권 구매
+                </Link>
               </li>
-              <li>
-              <Link to="/others">파트너십</Link>
+              <li className={activeLink === '/partnership' ? 'css-bibrta' : 'css-16mln42'}>
+                <Link to="/partnership" onClick={() => handleLinkClick('/partnership')}>
+                파트너십
+                </Link>
               </li>
             </ul>
           </nav>
