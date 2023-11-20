@@ -101,7 +101,8 @@
 }
 .css-kenvdg {
   margin-right: 32px;
-  margin-top: 8px;
+  margin-top: 8px
+  ;
   display: flex;
   text-align: center;
   width: 211px;
@@ -109,6 +110,7 @@
   border-radius: 35px;
   background-color: rgb(30, 30, 30);
 }
+/* 헤더_중단_초, 중, 고급 div */
 .css-kenvdg div {
   width: 33.3%;
   height: 30px;
@@ -117,9 +119,28 @@
   font-weight: 300;
   padding-top: 4px;
 }
+/* 초급 */
+.css-kenvdg .easy {
+  font-size: 14px;
+  font-weight: 500;
+  color: black;
+  padding-top: 4px;
+  border-radius: 35px;
+  background-color: rgb(236, 200, 38);
+}
 .css-1h5x3dy {
   cursor: pointer;
 }
+/* 중급 */
+.css-kenvdg .intermediate {
+  font-size: 14px;
+  font-weight: 500;
+  color: black;
+  padding-top: 4px;
+  border-radius: 35px;
+  background-color: rgb(236, 97, 38);
+}
+/* 고급 */
 .css-kenvdg .advanced {
   font-size: 14px;
   font-weight: 500;
@@ -127,14 +148,6 @@
   padding-top: 4px;
   border-radius: 35px;
   background-color: rgb(236, 38, 38);
-}
-.css-kenvdg div {
-  width: 33.3%;
-  height: 30px;
-  border-radius: 35px;
-  font-size: 14px;
-  font-weight: 300;
-  padding-top: 4px;
 }
 /* 헤더_하단 */
 .css-d2epat {

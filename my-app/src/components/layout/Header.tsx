@@ -2,12 +2,22 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../images/titleLogo.png';
 const Header = () : JSX.Element => {
-  // li태그 class변경에 사용하기 위한 state
+  // li태그 className변경에 사용하기 위한 state
   const [activeLink, setActiveLink] = useState('/others');
+  // 초급, 중급, 고급 버튼 className변경에 사용하기 위한 state
+  const [levelBtnState, setLevelBtnState] = useState('easy');
   // li태그 class변경에 사용하기 위한 함수
-  const changeClass = (to: string) => {
+  const changeClassName = (to: string) => {
     setActiveLink(to);
   };
+  // 초급, 중급, 고급 버튼 className변경에 사용하기 위한 함수
+  const changeLevelBtn = (level: string) => {
+    setLevelBtnState((prevLevel) => {
+      // 현재 레벨이 이전 레벨과 같다면 변경 없음
+      return prevLevel === level ? prevLevel : level;
+    });
+  };
+  
   return (<div className='css-crgeb6'>
     <div className='ss-1ago99h'>
       {/* 상단 영역 */}
@@ -25,9 +35,9 @@ const Header = () : JSX.Element => {
           <div className='css-1gf2x3a'>
             <div className='css-ov1ktg'>
               <div className='css-kenvdg'>
-                <div className='easy'>초급</div>
-                <div className='intermediate'>중급</div>
-                <div className='advanced'>고급</div>
+                <div id='easy'className={`${levelBtnState === 'easy' ? 'easy' : ''} css-1h5x3dy`} onClick={() => changeLevelBtn('easy')}>초급</div>
+                <div id='intermediate'className={`${levelBtnState === 'intermediate' ? 'intermediate' : ''} css-1h5x3dy`} onClick={() => changeLevelBtn('intermediate')}>중급</div>
+                <div id='advanced'className={`${levelBtnState === 'advanced' ? 'advanced' : ''} css-1h5x3dy`} onClick={() => changeLevelBtn('advanced')}>고급</div>
               </div>
                 <p>로그인 하러가기</p>
             </div>
@@ -39,38 +49,38 @@ const Header = () : JSX.Element => {
         <div className='css-ocv3tk'>
           <nav className='css-18sjzx1'>
             <ul className='css-h57cwe'>
-            <Link to="/backtest" onClick={() => changeClass('/backtest')}>
+            <Link to="/backtest" onClick={() => changeClassName('/backtest')}>
               <li className={activeLink === '/backtest' ? 'css-bibrta' : 'css-16mln42'}>
               백 테스트
               </li>
               </Link>
               <li className={activeLink === '/alloc' ? 'css-bibrta' : 'css-16mln42'}>
-                <Link to="/alloc" onClick={() => changeClass('/alloc')}>
+                <Link to="/alloc" onClick={() => changeClassName('/alloc')}>
                 자산 배분
                 </Link>
               </li>
               <li className={activeLink === '/port' ? 'css-bibrta' : 'css-16mln42'}>
-                <Link to="/port" onClick={() => changeClass('/port')}>
+                <Link to="/port" onClick={() => changeClassName('/port')}>
                 포토폴리오 추출
                 </Link>
               </li>
               <li className={activeLink === '/invest' ? 'css-bibrta' : 'css-16mln42'}>
-                <Link to="/invest" onClick={() => changeClass('/invest')}>
+                <Link to="/invest" onClick={() => changeClassName('/invest')}>
                 실전 투자
                 </Link>
               </li>
               <li className={activeLink === '/strategy' ? 'css-bibrta' : 'css-16mln42'}>
-                <Link to="/strategy" onClick={() => changeClass('/strategy')}>
+                <Link to="/strategy" onClick={() => changeClassName('/strategy')}>
                 전략 예시
                 </Link>
               </li>
               <li className={activeLink === '/products' ? 'css-bibrta' : 'css-16mln42'}>
-                <Link to="/products" onClick={() => changeClass('/products')}>
+                <Link to="/products" onClick={() => changeClassName('/products')}>
                 사용권 구매
                 </Link>
               </li>
               <li className={activeLink === '/partnership' ? 'css-bibrta' : 'css-16mln42'}>
-                <Link to="/partnership" onClick={() => changeClass('/partnership')}>
+                <Link to="/partnership" onClick={() => changeClassName('/partnership')}>
                 파트너십
                 </Link>
               </li>
