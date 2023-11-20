@@ -56,6 +56,9 @@
 .css-1ago99h {
   width: 100%;
 }
+.css-h4ylub .text_wrap {
+  display: flex;
+}
 .css-1e2pywg {
   cursor: pointer;
   width: 100vw;
@@ -109,6 +112,9 @@
   height: 30px;
   border-radius: 35px;
   background-color: rgb(30, 30, 30);
+}
+.css-1e2pywg .close_btn {
+  z-index: 3;
 }
 /* 헤더_중단_초, 중, 고급 div */
 .css-kenvdg div {
@@ -251,6 +257,262 @@ a {
   min-height: 810px;
   z-index: 3;
   position: relative;
+}
+.css-17ratg8 {
+  height: 100px;
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  background: rgb(14, 14, 14);
+  position: sticky;
+  top: 169px;
+  z-index: 98;
+  margin-bottom: 50px;
+}
+.css-7t04d {
+  display: inline-block;
+  width: 100%;
+  position: sticky;
+  top: 289px;
+  margin-left: 864px;
+  z-index: 10;
+}
+.css-xayx94 {
+  padding-left: 1px;
+}
+/* 전략 이름 입력 */
+.css-ggj8yl {
+  width: 100%;
+  height: 50px;
+  margin-top: 25px;
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.css-bmd2y5 input {
+  width: 700px;
+  height: 36px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  font-weight: bold;
+  color: rgb(252, 252, 252);
+}
+/* 전략 저장 버튼 */
+.css-1mvfl8k {
+  display: inline-flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 6px;
+  font-weight: 500;
+  position: relative;
+  background-color: rgb(14, 14, 14);
+  width: 82px;
+  height: 42px;
+  border: 1px solid rgb(62, 62, 62);
+  cursor: default;
+}
+.css-reou0t {
+  text-align: center;
+  font-size: 16px;
+  color: rgb(62, 62, 62);
+  font-weight: 300;
+}
+/* 하단으로 이동 버튼 */
+.css-12i4wy {
+  cursor: pointer;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 6px;
+  font-weight: 500;
+  position: relative;
+  background-color: rgb(236, 97, 38);
+  width: 178px;
+  height: 42px;
+}
+.css-72wevi {
+  text-align: center;
+  font-size: 16px;
+  color: rgb(14, 14, 14);
+  font-weight: 400;
+}
+
+.css-bmd2y5 {
+  border-bottom: 2px solid rgb(252, 252, 252);
+}
+.css-10p2e9r {
+  position: relative;
+}
+.css-10p2e9r {
+  position: relative;
+}
+/* 버튼 값 초기화 */
+.css-7t04d .button_wrap {
+  position: relative;
+}
+.css-7t04d .button {
+  width: 155px;
+  height: 42px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  border: 1px solid rgb(62, 62, 62);
+  border-radius: 6px;
+  color: rgb(207, 207, 207);
+  font-size: 14px;
+  background-color: rgb(14, 14, 14);
+  cursor: pointer;
+}
+.css-7t04d .button .icon {
+  margin: 0px 8px 5px 0px;
+}
+/* 메인_중간 컨텐츠 부분 */
+.css-rzre68 {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-top: -52px;
+  margin-bottom: 110px;
+}
+.css-rzre68 .alloc_title {
+  margin: 0px 0px 28px;
+}
+.css-14zzzkc {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 80px 0px 10px;
+  margin-top: 80px;
+  margin-right: 0px;
+  margin-bottom: 10px;
+  margin-left: 0px;
+}
+/* 자산 배분 설정 부분 */
+.css-n07pe0 {
+  display: inline-block;
+  position: relative;
+  width: 640px;
+}
+.css-1gtil7u {
+  margin-top: 48px;
+  width: 856px;
+  border-radius: 12px;
+  padding: 18px 27.5px 18px 28px;
+  background-color: rgb(30, 30, 30);
+}
+.css-1lytgsp {
+  display: flex;
+  margin-top: 18px;
+  margin-bottom: -17px;
+}
+.css-1qorevd {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 80px 0px 10px;
+}
+.css-mjhumy {
+  width: 640px;
+  display: flex;
+}
+.css-1a5xcom {
+  position: relative;
+  width: 100%;
+  height: 54px;
+  margin-top: 110px;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+}
+.css-ppidyn {
+  position: relative;
+  cursor: pointer;
+}
+.css-xu7bpf {
+  margin-bottom: 18px;
+  color: rgb(252, 252, 252);
+  margin-top: 0px;
+  font-size: 16px;
+  font-weight: 300;
+}
+.css-cy3vpx {
+  width: 640px;
+  position: relative;
+}
+.css-1jxlxru {
+  width: 640px;
+  height: 46px;
+  background: rgb(14, 14, 14);
+  border: 1px solid rgb(159, 159, 159);
+  border-radius: 6px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 300;
+  cursor: pointer;
+  color: rgb(252, 252, 252);
+  text-shadow: none;
+}
+.css-ppidyn div {
+  position: absolute;
+  bottom: -1px;
+  right: 0px;
+  height: 46px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+}
+.css-1evlre2 {
+  margin-right: 28px;
+  transform: scaleY(-1);
+}
+/* 자산배분 알고리즘 부분 활성화 됐을 때 */
+.css-1g43kch {
+  display: inline-block;
+  position: absolute;
+  margin-top: 9px;
+  z-index: 2;
+  background: rgb(14, 14, 14);
+  border-radius: 6px;
+  border: 1px solid rgb(62, 62, 62);
+  max-height: 500px;
+  overflow: hidden auto;
+  width: 100%;
+}
+.css-1uubgwg {
+  width: 640px;
+  border-radius: 6px;
+  text-align: center;
+  color: rgb(230, 230, 230);
+  cursor: pointer;
+  height: 36px;
+  margin: 0px auto;
+  border: none;
+  font-size: 16px;
+  font-weight: 300;
+  background: transparent;
+}
+.css-1ufv36b {
+  width: 640px;
+  border-radius: 6px;
+  text-align: center;
+  color: rgb(230, 230, 230);
+  cursor: pointer;
+  height: 36px;
+  margin: 0px auto;
+  border: none;
+  font-size: 16px;
+  font-weight: 300;
+  background: rgba(236, 97, 38, 0.3) !important;
 }
 /* 메인_ 우측 */
 .css-boa882 {
