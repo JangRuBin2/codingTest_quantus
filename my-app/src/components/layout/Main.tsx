@@ -9,15 +9,15 @@ const Main: React.FC<MainProps> = ({ children }) => {
   // 자산 배분 알고리즘 state
   const [modalState, setModalState] = useState(false);
   // 자산 배분 알고리즘 모달 className state
-  const [modalClassNameState, setModalClassNameState] = useState(false);
+  const [modalClassNameState, setModalClassNameState] = useState<null | number>(null);
   // 자산 배분 알고리즘 토글 함수
   const showModalValues = () => {
     // 모달 토글
     setModalState(!modalState);
   }
-  const changeModalClassName = () => {
+  const changeModalClassName = (index : number) => {
     // 자산 배분 알고리즘 모달 className 변경 함수
-    setModalClassNameState(!modalClassNameState);
+    setModalClassNameState(index);
   }
   const modalValues = ['전략 배분 (정적 자산배분)', '듀얼 모멘텀', 'VAA', 'DAA', 'BAA 공격형', 'BAA 중도형', 'LAA', 'HAA', '변형듀얼모멘텀', '가속듀얼모멘텀'];
   // 하단으로 이동 이벤트 함수
@@ -87,15 +87,17 @@ const Main: React.FC<MainProps> = ({ children }) => {
                 </div>
                 
                 {/* 모달창 보일 때 */}
-                {modalState &&
-                (<div className='css-1g43kch'>css-1g43kch
-                  {modalValues.map((item, index)=> {
-                  return (
-                  <div onClick={showModalValues}><div id={`${index}`} className='css-cy3vpx'>
-                    <input id={`${index}`} className={modalClassNameState ? 'css-1ufv36b' : 'css-1uubgwg'} type="text" readOnly autoComplete='off' value={item} onClick={changeModalClassName}/>
+                {modalState && (
+                  <div className='css-1g43kch'>
+                  {modalValues.map((item, index) => (
+                    <div key={index} onClick={() => showModalValues()}>
+                      <div id={`${index}`} className='css-cy3vpx'>
+                        <input id={`${index}`} className={modalClassNameState === index ? 'css-1ufv36b' : 'css-1uubgwg'} type="text" readOnly autoComplete='off' value={item} onClick={() => changeModalClassName(index)}/>
+                      </div>
+                    </div>
+                    ))}
                   </div>
-                  </div>)})}</div>)
-                  }
+                  )}
               </div>
               <div></div>
               <div className='ss-12qy42s'></div>
