@@ -7,19 +7,35 @@ interface MainProps {
 
 const Main: React.FC<MainProps> = ({ children }) => {
   // 자산 배분 알고리즘 state
-  const [modalState, setModalState] = useState(false);
+  const [allocationModalState, setAllocationModalState] = useState(false);
+  // 주기 리밸런싱 state
+  const [rebalancingModalState, setRebalancingModalState] = useState(false);
   // 자산 배분 알고리즘 모달 className state
-  const [modalClassNameState, setModalClassNameState] = useState<null | number>(null);
-  // 자산 배분 알고리즘 토글 함수
-  const showModalValues = () => {
-    // 모달 토글
-    setModalState(!modalState);
-  }
-  const changeModalClassName = (index : number) => {
-    // 자산 배분 알고리즘 모달 className 변경 함수
-    setModalClassNameState(index);
-  }
-  const modalValues = ['전략 배분 (정적 자산배분)', '듀얼 모멘텀', 'VAA', 'DAA', 'BAA 공격형', 'BAA 중도형', 'LAA', 'HAA', '변형듀얼모멘텀', '가속듀얼모멘텀'];
+  const [allocationModalClassNameState, setAllocationModalClassNameState] = useState<null | number>(null);
+  // 주기 리밸런싱 모달 className state
+  const [rebalancingModalClassNameState, setrRbalancingModalClassNameState] = useState<null | number>(null);
+  // 모달 활성화 함수
+  const showModalValues = ( modalType: 'allocation' | 'rebalancing' ) => {
+    // 입력 받은 문자에 맞는 모달을 활성화하게 함
+    if (modalType === 'allocation') {
+    setAllocationModalState(!allocationModalState);
+    } else if (modalType === 'rebalancing') {
+    setRebalancingModalState(!rebalancingModalState);
+    }
+  };
+  
+  const changeModalClassName = (modalType: 'allocation' | 'rebalancing' ,index : number) => {
+    // 모달 className 변경 함수
+    // 자산 배분 알고리즘
+    if (modalType === 'allocation') {
+    setAllocationModalClassNameState(index);
+    // 주기 리밸런싱
+    } else if (modalType === 'rebalancing') {
+    setrRbalancingModalClassNameState(index);
+    }
+  };
+  const allocationModalValues = ['전략 배분 (정적 자산배분)', '듀얼 모멘텀', 'VAA', 'DAA', 'BAA 공격형', 'BAA 중도형', 'LAA', 'HAA', '변형듀얼모멘텀', '가속듀얼모멘텀'];
+  const rebalancingModalValues = ['월별', '분기별', '반기별', '매년', '시즈널리티', '하지 않음(Buy-and-Hold)'];
   // 하단으로 이동 이벤트 함수
   const scrollToBottom = () => {
     window.scrollTo({
@@ -68,42 +84,67 @@ const Main: React.FC<MainProps> = ({ children }) => {
             </div>
           </div>
           <div className='css-xayx94'>
-            {/* 자산 배분 설정 부분 */}
+            {/* 자산 배분 설정 부분 탭 */}
             <div className='css-rzre68'>
-              <div className='alloc_title'>자산배분 설정</div>
+              <div className='alloc_title css-14zzzkc'>자산배분 설정</div>
+              {/* 자산 배분 알고리즘 설정 부분 */}
               <div className='css-n07pe0'>
                 <div>
                   <div className='css-xu7bpf'>자산배분 알고리즘</div>
                   {/* 밑의 모달창 선택 값에 따라서 value 변경되야하는 부분 */}
-                  <div id='StaticAlog' className='css-cy3vpx' onClick={showModalValues}>
+                  <div id='StaticAlog' className='css-cy3vpx' onClick={() =>showModalValues('allocation')}>
                     <input id='StaticAlog' type="text" name="" readOnly className='select_container css-1jxlxru' autoComplete='off' value={'전략배분 (정적자산배분)'}/>
                   </div>
                 </div>
-                {/* 모달창 토글 버튼 */}
-                <div id='StaticAlog' className='open_option css-ppidyn' onClick={showModalValues}>
-                  <div id='StaticAlog'>
-                    <img id='StaticAlog' src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg" alt="arrowDown" className='css-1evlre2' />
+                  {/* 모달창 토글 버튼 */}
+                  <div id='StaticAlog' className='open_option css-ppidyn' onClick={() =>showModalValues('allocation')}>
+                    <div id='StaticAlog'>
+                      <img id='StaticAlog' src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg" alt="arrowDown" className='css-1evlre2' />
+                    </div>
                   </div>
-                </div>
                 
                 {/* 모달창 보일 때 */}
-                {modalState && (
+                {allocationModalState && (
                   <div className='css-1g43kch'>
-                  {modalValues.map((item, index) => (
-                    <div key={index} onClick={() => showModalValues()}>
+                  {allocationModalValues.map((item, index) => (
+                    <div key={index} onClick={() => showModalValues('allocation')}>
                       <div id={`${index}`} className='css-cy3vpx'>
-                        <input id={`${index}`} className={modalClassNameState === index ? 'css-1ufv36b' : 'css-1uubgwg'} type="text" readOnly autoComplete='off' value={item} onClick={() => changeModalClassName(index)}/>
+                        <input id={`${index}`} className={allocationModalClassNameState === index ? 'css-1ufv36b' : 'css-1uubgwg'} type="text" readOnly autoComplete='off' value={item} onClick={() => changeModalClassName('allocation', index)}/>
                       </div>
                     </div>
                     ))}
                   </div>
                   )}
               </div>
-              <div></div>
+              {/* 초기 금액 투자 입력 부분 */}
+              <div>
+                <div className='css-1yqaytz'>초기 투자 금액</div>
+                <div className='css-cy3vpx'>
+                  <input type="text" placeholder='초기 투자 금액을 입력해주세요.' className='css-q4pyu0' autoComplete='off'/>
+                  <p className='css-1226vig'>만원</p>
+                </div>
+              </div>
+              {/* 주기 리밸런싱 입력 부분 */}
+              <div className='css-n07pe'>
+                <div>
+                  <div className='css-r80uh2'>주기 리밸런싱</div>
+                  <div id='staticRebalancing' className='css-cy3vpx'>
+                    <input type="text" placeholder='주기 리밸런싱을 선택해주세요' readOnly autoComplete='off' id="staticRebalancing" className='css-1jxlxru' />
+                  </div>
+                </div>
+                <div id='staticRebalancing' className='open_option css-ppidyn'>
+                  <div id='staticRebalancing'>
+                    <img src="	https://www.quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg" alt="arrowDown" className='css-egzwes' />
+                  </div>
+                </div>
+              </div>
               <div className='ss-12qy42s'></div>
               <div className='css-1gtil7u'></div>
+              <div className='css-1kjuv0i'></div>
               <div>마켓 타이밍 설정</div>
               <div className='css-1lytgsp'></div>
+              <div className='css-y4fv1w'></div>
+              <div style={{marginTop : '15px'}}></div>
               <div className='css-1qorevd'>기간 설정</div>
               <div className='css-mjhumy'></div>
               <div className='css-1a5xcom'></div>

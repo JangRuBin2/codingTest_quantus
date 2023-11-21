@@ -411,6 +411,27 @@ a {
   padding: 18px 27.5px 18px 28px;
   background-color: rgb(30, 30, 30);
 }
+.css-1kjuv0i {
+  margin-top: 48px;
+  width: 856px;
+  border-radius: 12px;
+  padding: 18px 27.5px 38px 28px;
+  background-color: rgb(30, 30, 30);
+}
+.css-1yqaytz {
+  margin-bottom: 18px;
+  color: rgb(252, 252, 252);
+  font-size: 16px;
+  font-weight: 300;
+  margin-top: 38px;
+}
+.css-y4fv1w {
+  border: none;
+  padding: 0px;
+  display: flex;
+  gap: 82px;
+  margin-top: 18px;
+}
 .css-1lytgsp {
   display: flex;
   margin-top: 18px;
@@ -449,6 +470,26 @@ a {
   width: 640px;
   position: relative;
 }
+/* 초기 금액 투자부분 */
+.css-q4pyu0 {
+  width: 640px;
+  height: 46px;
+  background: rgb(14, 14, 14);
+  border: 1px solid rgb(159, 159, 159);
+  border-radius: 6px;
+  text-align: center;
+  font-size: 16px;
+  color: rgb(230, 230, 230);
+  cursor: text;
+  font-weight: 300;
+}
+.css-1226vig {
+  color: rgb(230, 230, 230);
+  font-size: 16px;
+  position: absolute;
+  bottom: -5px;
+  right: 28px;
+}
 .css-1jxlxru {
   width: 640px;
   height: 46px;
@@ -461,6 +502,9 @@ a {
   cursor: pointer;
   color: rgb(252, 252, 252);
   text-shadow: none;
+}
+.css-egzwes {
+  margin-right: 28px;
 }
 .css-ppidyn div {
   position: absolute;
@@ -513,6 +557,13 @@ a {
   font-size: 16px;
   font-weight: 300;
   background: rgba(236, 97, 38, 0.3) !important;
+}
+.css-r80uh2 {
+  margin-bottom: 18px;
+  color: rgb(252, 252, 252);
+  margin-top: 38px;
+  font-size: 16px;
+  font-weight: 300;
 }
 /* 메인_ 우측 */
 .css-boa882 {
