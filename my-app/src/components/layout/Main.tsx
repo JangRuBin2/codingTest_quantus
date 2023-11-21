@@ -18,8 +18,10 @@ const Main: React.FC<MainProps> = ({ children }) => {
   const showModalValues = ( modalType: 'allocation' | 'rebalancing' ) => {
     // 입력 받은 문자에 맞는 모달을 활성화하게 함
     if (modalType === 'allocation') {
+    setRebalancingModalState(false);
     setAllocationModalState(!allocationModalState);
     } else if (modalType === 'rebalancing') {
+    setAllocationModalState(false);
     setRebalancingModalState(!rebalancingModalState);
     }
   };
@@ -125,10 +127,10 @@ const Main: React.FC<MainProps> = ({ children }) => {
                 </div>
               </div>
               {/* 주기 리밸런싱 입력 부분 */}
-              <div className='css-n07pe'>
+              <div className='css-n07pe0'>
                 <div>
                   <div className='css-r80uh2'>주기 리밸런싱</div>
-                  <div id='staticRebalancing' className='css-cy3vpx'>
+                  <div id='staticRebalancing' className='css-cy3vpx' onClick={() => showModalValues('rebalancing')}>
                     <input type="text" placeholder='주기 리밸런싱을 선택해주세요' readOnly autoComplete='off' id="staticRebalancing" className='css-1jxlxru' />
                   </div>
                 </div>
@@ -137,6 +139,17 @@ const Main: React.FC<MainProps> = ({ children }) => {
                     <img src="	https://www.quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg" alt="arrowDown" className='css-egzwes' />
                   </div>
                 </div>
+                {rebalancingModalState && (
+                  <div className='css-1g43kch'>
+                  {rebalancingModalValues.map((item, index) => (
+                    <div key={index} onClick={() => showModalValues('rebalancing')}>
+                      <div id={`${index}`} className='css-cy3vpx'>
+                        <input id={`${index}`} className={rebalancingModalClassNameState === index ? 'css-1ufv36b' : 'css-1uubgwg'} type="text" readOnly autoComplete='off' value={item} onClick={() => changeModalClassName('rebalancing', index)}/>
+                      </div>
+                    </div>
+                    ))}
+                  </div>
+                  )}
               </div>
               <div className='ss-12qy42s'></div>
               <div className='css-1gtil7u'></div>
