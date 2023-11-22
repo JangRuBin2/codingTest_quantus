@@ -1,11 +1,13 @@
 // Main.tsx
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useEffect, useRef, useState } from 'react';
 
 interface MainProps {
   children: ReactNode;
 }
 
 const Main: React.FC<MainProps> = ({ children }) => {
+  // input태그 안내문구 value활성화 state
+  const [inputActivate, setInputActivate] = useState(true);
   // 자산 배분 알고리즘 state
   const [allocationModalState, setAllocationModalState] = useState(false);
   // 주기 리밸런싱 state
@@ -14,6 +16,37 @@ const Main: React.FC<MainProps> = ({ children }) => {
   const [allocationModalClassNameState, setAllocationModalClassNameState] = useState<null | number>(null);
   // 주기 리밸런싱 모달 className state
   const [rebalancingModalClassNameState, setrRbalancingModalClassNameState] = useState<null | number>(null);
+  // 전략 이름 입력 부분 활성화 state
+  const [allocationInputValue, setAllocationInputValue] = useState<any>('전략 이름을 입력해주세요.');
+  // input 태그 이벤트에 사용함
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  // 전략 이름 입력 클릭 이벤트
+  const activateInputArea = ( inputT_Type :'allocation' | 'rebalancing') => {
+    if ( inputT_Type === 'allocation' ) {
+      setInputActivate(true);
+      // 비활성화로 상태 바꿈
+      // setInputActivate(false);
+      // console.log('input활성 state',inputActivate )
+    }
+  };
+  // input태그 외의 영역 클릭했을 때 이벤트
+  const handleClickOutside = (event: MouseEvent) => {
+    // 클릭된 요소가 inputRef(입력창)에 속하지 않으면 기존 값으로 복원
+    if (inputRef.current && !inputRef.current!.contains(event.target as Node)) {
+      // setInputActivate(true);
+      // setAllocationInputValue('전략 이름을 입력해주세요.');
+      setInputActivate(false);
+    }
+  };
+
+  // input 태그 외의 영역을 클릭했을 때의 이벤트
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
   // 모달 활성화 함수
   const showModalValues = ( modalType: 'allocation' | 'rebalancing' ) => {
     // 입력 받은 문자에 맞는 모달을 활성화하게 함
@@ -57,7 +90,16 @@ const Main: React.FC<MainProps> = ({ children }) => {
             <div className='css-ggj8yl'>
               <div style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent:'space-between'}}>
                 <div className='css-bmd2y5'>
-                  <input type="text" value='전략 이름을 입력해주세요.' maxLength={30} autoComplete='off'/>
+                <input
+      ref={inputRef}
+      type="text"
+      value={inputActivate === true ? allocationInputValue : undefined}
+      maxLength={30}
+      onClick={() => {
+        activateInputArea('allocation');
+      }}
+      autoComplete='off'
+    />
                 </div>
                 {/* 저장 버튼 */}
                 <div className='css-10p2e9r'>
