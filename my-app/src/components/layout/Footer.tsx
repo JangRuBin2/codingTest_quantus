@@ -9,7 +9,6 @@ const Footer = () : JSX.Element => {
             <img src={title} alt="logo" style={{width :'191px', height :'37px'}}/>
             <p className='title'>주식회사 퀀터스테크놀로지스</p>
             <p>지원자 명 : 장루빈 | 열정 넘치는 신입 개발자</p>
-            <a href='https://github.com/JangRuBin2'>github 바로 가기</a>
             <p>e-mail : wkdfnqls2465@gmail.com</p>
             <p className='right_text'>오늘도 좋은 하루 되세요~ 2024년도 화이팅</p>
           </div>

@@ -615,3 +615,100 @@ a {
   margin: 28px 0px 50px;
   color: rgb(110, 110, 110);
 }
+/* 전체 환율 반영 부분  */
+.css-l1mo21 {
+  color: rgb(159, 159, 159);
+  font-size: 12px;
+  margin-bottom: 0px;
+  margin-top: 10px;
+}
+.css-18ru846 {
+  display: flex;
+  flex-wrap: wrap;
+  width: 830px;
+}
+.css-1j8i7mp {
+  min-width: 140px;
+  margin-right: 20px;
+  margin-bottom: 32px;
+}
+.css-192m3r6 {
+  height: 24px;
+  display: flex;
+  font-size: 16px;
+  -webkit-box-align: center;
+  align-items: center;
+  cursor: pointer;
+}
+.css-1xsl7pa {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  margin-top: 1px;
+}
+/* 자산군 추가 부분 */
+.css-2fefu9 {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0px;
+}
+.css-14slbl7 {
+  font-weight: 300;
+  font-size: 14px;
+  color: rgb(236, 97, 38);
+  z-index: 3;
+  cursor: pointer;
+}
+.css-1gn5vo1 {
+  margin-bottom: 2px;
+  padding-left: 10px;
+  transform: none;
+}
+.css-6d3iyv {
+  margin-bottom: 2px;
+  padding-right: 10px;
+  transform: rotate(180deg);
+}
+/* 자산군 추가 버튼*/
+.css-185r4pm {
+  color: rgba(0, 0, 0, 0.87);
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+  width: 368px;
+  height: 200px;
+  background-color: rgb(30, 30, 30);
+  border-radius: 12px;
+  border: 1px solid rgb(159, 159, 159);
+}
+.css-79elbk {
+  position: relative;
+}
+.css-zay56g {
+  display: flex;
+  flex-flow: column wrap;
+}
+.css-rtde4j {
+  display: flex;
+  flex-wrap: wrap;
+}
+.css-1z0pfhy {
+  width: 800px;
+}
+.css-yyszln {
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: wrap;
+  margin-top: -38px;
+  width: calc(100% + 64px);
+  margin-left: -64px;
+}
+.gridChildren {
+  padding-left : 64px;
+  padding-top: 38px;
+  flex-basis: 50%;
+    -webkit-box-flex: 0;
+    flex-grow: 0;
+    max-width: 50%;
+    box-sizing: border-box;
+    margin: 0px;
+}
