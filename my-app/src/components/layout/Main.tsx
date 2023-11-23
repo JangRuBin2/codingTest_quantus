@@ -1,4 +1,3 @@
-// Main.tsx
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
 
 interface MainProps {
@@ -17,7 +16,7 @@ const Main: React.FC<MainProps> = ({ children }) => {
   // 자산 배분 알고리즘 모달 className state
   const [allocationModalClassNameState, setAllocationModalClassNameState] = useState<null | number>(null);
   // 주기 리밸런싱 모달 className state
-  const [rebalancingModalClassNameState, setrRbalancingModalClassNameState] = useState<null | number>(null);
+  const [rebalancingModalClassNameState, setRebalancingModalClassNameState] = useState<null | number>(null);
   // 전략 이름 입력 input태그 value state
   const [allocationInputValue, setAllocationInputValue] = useState<any>('전략배분 (정적자산배분)');
   // 전략 이름 입력 input태그 value state
@@ -36,7 +35,7 @@ const Main: React.FC<MainProps> = ({ children }) => {
   const addAssetDiv = () => {
     setAssetDiv(prevDivs => [
       ...prevDivs,
-      <div key={prevDivs.length}>새로운 div</div>,
+      <div className='gridChildren' key={prevDivs.length}></div>,
     ]);
   };
   const changeStrategyName = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,7 +100,7 @@ const Main: React.FC<MainProps> = ({ children }) => {
     setAllocationModalClassNameState(index);
     // 주기 리밸런싱
     } else if (modalType === 'rebalancing') {
-    setrRbalancingModalClassNameState(index);
+    setRebalancingModalClassNameState(index);
     }
   };
   const allocationModalValues = ['전략 배분 (정적 자산배분)', '듀얼 모멘텀', 'VAA', 'DAA', 'BAA 공격형', 'BAA 중도형', 'LAA', 'HAA', '변형듀얼모멘텀', '가속듀얼모멘텀'];
@@ -244,7 +243,7 @@ const Main: React.FC<MainProps> = ({ children }) => {
               <div>
                 <div className='css-1yqaytz'>밴드 리밸런싱</div>
                 <div className='css-cy3vpx'>
-                  <input type="text" onChange={(e) => inputValueSensor(e, 'rebalancing')} className='css-q4pyu0' placeholder='밴드 리밸런싱 기준을 입력해주세요.' autoComplete='off' />
+                  <input type="text" onChange={(e) => inputValueSensor(e, 'rebalancing')} className='css-q4pyu0' value={rebalancingValue} placeholder='밴드 리밸런싱 기준을 입력해주세요.' autoComplete='off' />
                   <p className='css-1226vig'>%</p>
                 </div>
                 <p className='css-l1mo21'>0 ~ 100까지 입력할 수 있습니다. (0 입력시 비활성화)</p>
@@ -263,19 +262,35 @@ const Main: React.FC<MainProps> = ({ children }) => {
                 </div>
               </div>
               {/* 자산군 추가 부분 */}
-              <div className={foldingState === true ? 'css-1kjuv0i' : 'css-1gtil7u'}>
+              <div className={foldingState ? 'css-1kjuv0i' : 'css-1gtil7u'}>
                 <div className='css-5bbky6'>
-                  {assetClassState && (<div className=''></div>)}
-                  <div className='css-2fefu9' style={foldingState === true ? ({ display : 'flex', alignItems : 'center', justifyContent : 'space-between'}) : ({display : 'flex', alignItems :'center', justifyContent : 'space-between', marginBottom : '10px'})}>
+                  {assetClassState ?
+                  // true일 때 보여줄 내용
+                  (<><div className='css-zay56g'>
+                    <div className='css-2fefu9' style={foldingState ? ({ display : 'flex', alignItems : 'center', justifyContent : 'space-between'}) : ({display : 'flex', alignItems :'center', justifyContent : 'space-between', marginBottom : '10px'})}>
                     <p>자산군 추가</p>
-                    <div className='css-14slbl7' onClick={() => showModalValues('addAsset')}>{foldingState === true ? '접기' : '펼치기'}<img src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg" alt="arrowIcon" className={foldingState === true ? 'css-1gn5vo1': 'css-6d3iyv'}/></div>
+                    <div className='css-14slbl7' onClick={() => showModalValues('addAsset')}>{foldingState ? '접기' : '펼치기'}<img src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg" alt="arrowIcon" onClick={addAssetDiv} className={foldingState ? 'css-1gn5vo1': 'css-6d3iyv'}/>
+                    </div>
                   </div>
-                  {/* 펼쳐졌을 때 나오는 추가 버튼 div */}
-                  {assetDiv.map((div, index) => (
-        <div key={index}>{div}</div>
-      ))}
+                  <div className='css-rtde4j'></div>
+                  </div>
+                  <div className='css-0'></div>
+                  <div className='MuiBox-root css-1z0pfhy'>
+                    {/* grid 템플릿 */}
+                    <div className='css-yyszln'>
+                      {assetDiv.map((div, index) => (
+                      <div className='gridChildren' key={index}>{div}</div>))}
+                    </div>
+                  </div>
+                  </>
+                  ) :
+                  // false일 때 보여줄 내용
+                  (<div className='css-2fefu9' style={foldingState ? ({ display : 'flex', alignItems : 'center', justifyContent : 'space-between'}) : ({display : 'flex', alignItems :'center', justifyContent : 'space-between', marginBottom : '10px'})}>
+                  <p>자산군 추가</p>
+                  <div className='css-14slbl7' onClick={() => showModalValues('addAsset')}>{foldingState ? '접기' : '펼치기'}<img src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg" alt="arrowIcon" className={foldingState ? 'css-1gn5vo1': 'css-6d3iyv'}/></div>
+                </div>)}
                   {/* 접혀 있는 상태에 따라서 나타냄 */}
-                  {foldingState && (<div className='MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-185r4pm' onClick={addAssetDiv}>
+                  {foldingState && (<div className='MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-185r4pm'>
                     <div className='MuiBox-root css-79elbk'>
                       <img src="https://quantus.kr/static/media/assetAddIcon.5c650e6cec8030c8302335ae8189dc48.svg" alt="addIcon" style={{marginLeft :'157px', marginTop : '73px', width : '55px'}}/>
                     </div>
