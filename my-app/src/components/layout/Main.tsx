@@ -35,9 +35,11 @@ const Main: React.FC<MainProps> = ({ children }) => {
   const addAssetDiv = () => {
     setAssetDiv(prevDivs => [
       ...prevDivs,
-      <div className='gridChildren' key={prevDivs.length}></div>,
+      <div key={prevDivs.length}>새로운 div</div>,
     ]);
   };
+  // 나머지 코드는 이전과 동일하게 유지됩니다.
+  
   const changeStrategyName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setStrategyName(event.target.value);
   }
@@ -268,7 +270,7 @@ const Main: React.FC<MainProps> = ({ children }) => {
                   // true일 때 보여줄 내용
                   (<><div className='css-zay56g'>
                     <div className='css-2fefu9' style={foldingState ? ({ display : 'flex', alignItems : 'center', justifyContent : 'space-between'}) : ({display : 'flex', alignItems :'center', justifyContent : 'space-between', marginBottom : '10px'})}>
-                    <p>자산군 추가</p>
+                    <p>자산군 추가 트루일 때</p>
                     <div className='css-14slbl7' onClick={() => showModalValues('addAsset')}>{foldingState ? '접기' : '펼치기'}<img src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg" alt="arrowIcon" onClick={addAssetDiv} className={foldingState ? 'css-1gn5vo1': 'css-6d3iyv'}/>
                     </div>
                   </div>
@@ -278,19 +280,22 @@ const Main: React.FC<MainProps> = ({ children }) => {
                   <div className='MuiBox-root css-1z0pfhy'>
                     {/* grid 템플릿 */}
                     <div className='css-yyszln'>
-                      {assetDiv.map((div, index) => (
-                      <div className='gridChildren' key={index}>{div}</div>))}
+                    {assetDiv.map((div, index) => (
+        <div key={index}>{div}</div>
+      ))}
                     </div>
                   </div>
                   </>
                   ) :
                   // false일 때 보여줄 내용
                   (<div className='css-2fefu9' style={foldingState ? ({ display : 'flex', alignItems : 'center', justifyContent : 'space-between'}) : ({display : 'flex', alignItems :'center', justifyContent : 'space-between', marginBottom : '10px'})}>
-                  <p>자산군 추가</p>
+                  <p>자산군 추가 false</p>
                   <div className='css-14slbl7' onClick={() => showModalValues('addAsset')}>{foldingState ? '접기' : '펼치기'}<img src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg" alt="arrowIcon" className={foldingState ? 'css-1gn5vo1': 'css-6d3iyv'}/></div>
                 </div>)}
-                  {/* 접혀 있는 상태에 따라서 나타냄 */}
-                  {foldingState && (<div className='MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-185r4pm'>
+
+                  {foldingState && (<div className='MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-185r4pm' onClick={() => {setAssetClassState(true);
+                  console.log('클릭 됨?', assetClassState) }
+                }>
                     <div className='MuiBox-root css-79elbk'>
                       <img src="https://quantus.kr/static/media/assetAddIcon.5c650e6cec8030c8302335ae8189dc48.svg" alt="addIcon" style={{marginLeft :'157px', marginTop : '73px', width : '55px'}}/>
                     </div>
