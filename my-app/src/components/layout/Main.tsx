@@ -6,8 +6,10 @@ interface MainProps {
 }
 
 const Main: React.FC<MainProps> = ({ children }) => {
-  // input태그 안내문구 value활성화 state
-  const [inputActivate, setInputActivate] = useState(true);
+  // 자산 추가에 사용하기 위한 state
+  const [assetClassState, setAssetClassState] = useState(false);
+  // 자산 추가 div을 저장할 상태 배열
+  const [assetDiv, setAssetDiv] = useState<JSX.Element[]>([]);
   // 자산 배분 알고리즘 state
   const [allocationModalState, setAllocationModalState] = useState(false);
   // 주기 리밸런싱 state
@@ -26,6 +28,16 @@ const Main: React.FC<MainProps> = ({ children }) => {
   const [initialInvestmentValue, setInitialInvestmentValue] = useState<number | string>('');
   // 전략 이름 입력 부분 state
   const [strategyName, setStrategyName] = useState<string>('전략 이름을 입력해주세요.');
+  // 전략 자산 '접기, 펼치기'
+  const [foldingState, setFoldingState] = useState(false);
+
+  // 클릭하면 자산군 div 추가
+  const addAssetDiv = () => {
+    setAssetDiv(prevDivs => [
+      ...prevDivs,
+      <div key={prevDivs.length}>새로운 div</div>,
+    ]);
+  };
   const changeStrategyName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setStrategyName(event.target.value);
   }
@@ -64,7 +76,7 @@ const Main: React.FC<MainProps> = ({ children }) => {
     };
   }, [strategyName]);
   // 모달 활성화 함수
-  const showModalValues = ( modalType: 'allocation' | 'rebalancing' ) => {
+  const showModalValues = ( modalType: 'allocation' | 'rebalancing' | 'addAsset' ) => {
     // 입력 받은 문자에 맞는 모달을 활성화하게 함
     if (modalType === 'allocation') {
     setRebalancingModalState(false);
@@ -72,10 +84,12 @@ const Main: React.FC<MainProps> = ({ children }) => {
     } else if (modalType === 'rebalancing') {
     setAllocationModalState(false);
     setRebalancingModalState(!rebalancingModalState);
+    } else if (modalType === 'addAsset') {
+    setFoldingState(!foldingState);
     }
   };
   
-  const changeModalClassName = (modalType: 'allocation' | 'rebalancing' ,index : number) => {
+  const changeModalClassName = (modalType: 'allocation' | 'rebalancing' | 'arrow' ,index : number) => {
     // 모달 className 변경 함수
     // 자산 배분 알고리즘
     if (modalType === 'allocation') {
@@ -221,10 +235,49 @@ const Main: React.FC<MainProps> = ({ children }) => {
                   </div>
                   )}
               </div>
-              <div className='ss-12qy42s'></div>
-              <div className='css-1gtil7u'></div>
-              <div className='css-1kjuv0i'></div>
-              <div>마켓 타이밍 설정</div>
+              {/* 밴드 리밸런싱 입력부분 */}
+              <div>
+                <div className='css-1yqaytz'>밴드 리밸런싱</div>
+                <div className='css-cy3vpx'>
+                  <input type="text" className='css-q4pyu0' placeholder='밴드 리밸런싱 기준을 입력해주세요.' autoComplete='off' />
+                  <p className='css-1226vig'>%</p>
+                </div>
+                <p className='css-l1mo21'>0 ~ 100까지 입력할 수 있습니다. (0 입력시 비활성화)</p>
+              </div>
+              {/* 전체 환율 반영 선택 부분 */}
+              <div className='css-12qy42s'>
+                <div className='css-18ru846'>
+                  <div className='css-1j8i7mp'>
+                    <div className='css-192m3r6'>
+                      {/* onclick 하면 이미지 	https://www.quantus.kr/static/media/clickCheckBox.eb67ac97b1bde3053a63997d27658439.svg로 바뀌어야함
+ */}
+                      <img src="https://www.quantus.kr/static/media/checkBoxDefault.c07524e01b9d604f81a0269a5fd614f0.svg" alt="" className='css-1xsl7pa' style={{cursor :'pointer'}}/>
+                      <div>전체 환율 반영</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* 자산군 추가 부분 */}
+              <div className={foldingState === true ? 'css-1kjuv0i' : 'css-1gtil7u'}>
+                <div className='css-5bbky6'>
+                  {assetClassState && (<div className=''></div>)}
+                  <div className='css-2fefu9' style={foldingState === true ? ({ display : 'flex', alignItems : 'center', justifyContent : 'space-between'}) : ({display : 'flex', alignItems :'center', justifyContent : 'space-between', marginBottom : '10px'})}>
+                    <p>자산군 추가</p>
+                    <div className='css-14slbl7' onClick={() => showModalValues('addAsset')}>{foldingState === true ? '접기' : '펼치기'}<img src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg" alt="arrowIcon" className={foldingState === true ? 'css-1gn5vo1': 'css-6d3iyv'}/></div>
+                  </div>
+                  {/* 펼쳐졌을 때 나오는 추가 버튼 div */}
+                  {assetDiv.map((div, index) => (
+        <div key={index}>{div}</div>
+      ))}
+                  {foldingState && (<div className='css-185r4pm' onClick={addAssetDiv}>
+                    <div className='css-79elbk'>
+                      <img src="https://quantus.kr/static/media/assetAddIcon.5c650e6cec8030c8302335ae8189dc48.svg" alt="addIcon" style={{marginLeft :'157px', marginTop : '73px', width : '55px'}}/>
+                    </div>
+                  </div>)}
+                </div>
+              </div>
+              {/* <div className='css-1kjuv0i'></div> */}
+              <div style={{marginTop : '80px', fontSize : '18px', fontWeight : '500'}}>마켓 타이밍 설정</div>
               <div className='css-1lytgsp'></div>
               <div className='css-y4fv1w'></div>
               <div style={{marginTop : '15px'}}></div>
