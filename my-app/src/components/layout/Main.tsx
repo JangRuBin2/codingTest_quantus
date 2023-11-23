@@ -13,12 +13,16 @@ const Main: React.FC<MainProps> = ({ children }) => {
   const [allocationModalState, setAllocationModalState] = useState(false);
   // 주기 리밸런싱 state
   const [rebalancingModalState, setRebalancingModalState] = useState(false);
-  // 자산 배분 알고리즘 모달 className state
-  const [allocationModalClassNameState, setAllocationModalClassNameState] = useState<null | number>(null);
   // 주기 리밸런싱 모달 className state
   const [rebalancingModalClassNameState, setRebalancingModalClassNameState] = useState<null | number>(null);
+  // 자산 배분 알고리즘 모달 className state
+  const [allocationModalClassNameState, setAllocationModalClassNameState] = useState<null | number>(null);
   // 전략 이름 입력 input태그 value state
   const [allocationInputValue, setAllocationInputValue] = useState<any>('전략배분 (정적자산배분)');
+  // 자산 추가 부분 '종류' input 태그 value State
+  const [assetTypeInputValue, setAssetTypeInputValue] = useState<string>('한국 자산군');
+  // 자산 추가 부분 '자산군' input 태그 value State
+  const [assetClassInputValue, setAssetClassInputValue] = useState<string>('');
   // 전략 이름 입력 input태그 value state
   const [rebalancingInputValue, setrebalancingInputValue] = useState<any>('주기 리밸런싱을 선택해주세요.');
   // input 태그 이벤트에 사용함
@@ -38,8 +42,34 @@ const Main: React.FC<MainProps> = ({ children }) => {
       ...prevDivs,
       <div key={prevDivs.length} className='MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-1s50f5r'>
         <div className='"MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-17ciadl'>
-          <div></div>
-            <div>하이</div>
+          <div>
+            <div className='MuiPaper_title'>자산{prevDivs.length + 1}</div>
+            <div className='MuiPaper_Container'>
+              <div className='MuiPaper_Box'>
+                <p>종류</p>
+                <div>
+                <input type="text" value={assetTypeInputValue}/>
+                <img src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg" alt="arrowDown" />
+                </div>
+              </div>
+              <div className='MuiPaper_Box'>
+                <p>자산군</p>
+                <div>
+                <div>{assetClassInputValue}</div>
+                <img src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg" alt="arrowDown" />
+                </div>
+              </div>
+              <div className='MuiPaper_Box'>
+                <p>비중</p>
+                <div>
+                <input type="text" value={'0'}/><p>%</p>
+                <img src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg" alt="arrowDown" />
+                </div>
+                <p>0 ~ 100까지 입력할 수 있습니다.</p>
+              </div>
+
+
+            </div>
           </div>
         </div>
       </div>,
@@ -113,6 +143,8 @@ const Main: React.FC<MainProps> = ({ children }) => {
   };
   const allocationModalValues = ['전략 배분 (정적 자산배분)', '듀얼 모멘텀', 'VAA', 'DAA', 'BAA 공격형', 'BAA 중도형', 'LAA', 'HAA', '변형듀얼모멘텀', '가속듀얼모멘텀'];
   const rebalancingModalValues = ['월별', '분기별', '반기별', '매년', '시즈널리티', '하지 않음(Buy-and-Hold)'];
+  const assetTypeModalValues = ['한국 자산군', '미국 자산군', '전략', '한국 ETF', '미국 ETF', '한국 주식', '미국 주식'];
+  
   // 하단으로 이동 이벤트 함수
   const scrollToBottom = () => {
     window.scrollTo({
