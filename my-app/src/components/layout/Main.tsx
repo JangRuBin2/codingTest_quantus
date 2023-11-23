@@ -26,6 +26,7 @@ const Main: React.FC<MainProps> = ({ children }) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   // input 태그에 숫자 입력에 활용할 state
   const [initialInvestmentValue, setInitialInvestmentValue] = useState<number | string>('');
+  const [rebalancingValue, setRebalancingValue] = useState<number | string>('');
   // 전략 이름 입력 부분 state
   const [strategyName, setStrategyName] = useState<string>('전략 이름을 입력해주세요.');
   // 전략 자산 '접기, 펼치기'
@@ -50,12 +51,16 @@ const Main: React.FC<MainProps> = ({ children }) => {
     }
   };
 // 입력된 값이 타입과 일치하는지 확인해주는 함수
-  const inputValueSensor = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const inputValueSensor = (event: React.ChangeEvent<HTMLInputElement>, output : 'Investment' | 'rebalancing') => {
     // 입력된 값이 숫자인지 확인
     const numericValue = Number(event.target.value);
     // 숫자인 경우에만 state 업데이트
     if (!isNaN(numericValue)) {
-      setInitialInvestmentValue(numericValue);
+      if (output === 'Investment') {
+        setInitialInvestmentValue(numericValue);
+      } else if (output === 'rebalancing') {
+        setRebalancingValue(numericValue);
+      }
     }
   };
   // 전략 이름 입력부분 변경 함수
@@ -201,7 +206,7 @@ const Main: React.FC<MainProps> = ({ children }) => {
               <div>
                 <div className='css-1yqaytz'>초기 투자 금액</div>
                 <div className='css-cy3vpx'>
-                  <input type="text" value={initialInvestmentValue} placeholder='초기 투자 금액을 입력해주세요.' className='css-q4pyu0' onChange={inputValueSensor} autoComplete='off'/>
+                  <input type="text" value={initialInvestmentValue} placeholder='초기 투자 금액을 입력해주세요.' className='css-q4pyu0' onChange={(e) => inputValueSensor(e, 'Investment')} autoComplete='off'/>
                   <p className='css-1226vig'>만원</p>
                 </div>
               </div>
@@ -239,7 +244,7 @@ const Main: React.FC<MainProps> = ({ children }) => {
               <div>
                 <div className='css-1yqaytz'>밴드 리밸런싱</div>
                 <div className='css-cy3vpx'>
-                  <input type="text" className='css-q4pyu0' placeholder='밴드 리밸런싱 기준을 입력해주세요.' autoComplete='off' />
+                  <input type="text" onChange={(e) => inputValueSensor(e, 'rebalancing')} className='css-q4pyu0' placeholder='밴드 리밸런싱 기준을 입력해주세요.' autoComplete='off' />
                   <p className='css-1226vig'>%</p>
                 </div>
                 <p className='css-l1mo21'>0 ~ 100까지 입력할 수 있습니다. (0 입력시 비활성화)</p>
@@ -269,8 +274,9 @@ const Main: React.FC<MainProps> = ({ children }) => {
                   {assetDiv.map((div, index) => (
         <div key={index}>{div}</div>
       ))}
-                  {foldingState && (<div className='css-185r4pm' onClick={addAssetDiv}>
-                    <div className='css-79elbk'>
+                  {/* 접혀 있는 상태에 따라서 나타냄 */}
+                  {foldingState && (<div className='MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-185r4pm' onClick={addAssetDiv}>
+                    <div className='MuiBox-root css-79elbk'>
                       <img src="https://quantus.kr/static/media/assetAddIcon.5c650e6cec8030c8302335ae8189dc48.svg" alt="addIcon" style={{marginLeft :'157px', marginTop : '73px', width : '55px'}}/>
                     </div>
                   </div>)}
