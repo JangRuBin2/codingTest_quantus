@@ -16,37 +16,53 @@ const Main: React.FC<MainProps> = ({ children }) => {
   const [allocationModalClassNameState, setAllocationModalClassNameState] = useState<null | number>(null);
   // 주기 리밸런싱 모달 className state
   const [rebalancingModalClassNameState, setrRbalancingModalClassNameState] = useState<null | number>(null);
-  // 전략 이름 입력 부분 활성화 state
-  const [allocationInputValue, setAllocationInputValue] = useState<any>('전략 이름을 입력해주세요.');
+  // 전략 이름 입력 input태그 value state
+  const [allocationInputValue, setAllocationInputValue] = useState<any>('전략배분 (정적자산배분)');
+  // 전략 이름 입력 input태그 value state
+  const [rebalancingInputValue, setrebalancingInputValue] = useState<any>('주기 리밸런싱을 선택해주세요.');
   // input 태그 이벤트에 사용함
   const inputRef = useRef<HTMLInputElement | null>(null);
-
-  // 전략 이름 입력 클릭 이벤트
-  const activateInputArea = ( inputT_Type :'allocation' | 'rebalancing') => {
-    if ( inputT_Type === 'allocation' ) {
-      setInputActivate(true);
-      // 비활성화로 상태 바꿈
-      // setInputActivate(false);
-      // console.log('input활성 state',inputActivate )
+  // input 태그에 숫자 입력에 활용할 state
+  const [initialInvestmentValue, setInitialInvestmentValue] = useState<number | string>('');
+  // 전략 이름 입력 부분 state
+  const [strategyName, setStrategyName] = useState<string>('전략 이름을 입력해주세요.');
+  const changeStrategyName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setStrategyName(event.target.value);
+  }
+  // modal창의 요소 클릭하면 input tag value속성 변경 이벤트
+  const changeInputValue = (modalType : 'allocation' | 'rebalancing' ,item : string) => {
+    if (modalType === 'allocation') {
+      setAllocationInputValue(item);
+    } else if (modalType === 'rebalancing') {
+      setrebalancingInputValue(item);
     }
   };
-  // input태그 외의 영역 클릭했을 때 이벤트
+// 입력된 값이 타입과 일치하는지 확인해주는 함수
+  const inputValueSensor = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // 입력된 값이 숫자인지 확인
+    const numericValue = Number(event.target.value);
+    // 숫자인 경우에만 state 업데이트
+    if (!isNaN(numericValue)) {
+      setInitialInvestmentValue(numericValue);
+    }
+  };
+  // 전략 이름 입력부분 변경 함수
+
+  // 전략 이름 입력부분input태그 외의 영역 클릭했을 때 이벤트
   const handleClickOutside = (event: MouseEvent) => {
-    // 클릭된 요소가 inputRef(입력창)에 속하지 않으면 기존 값으로 복원
-    if (inputRef.current && !inputRef.current!.contains(event.target as Node)) {
+    if (inputRef.current && !inputRef.current!.contains(event.target as Node) && strategyName ==='') {
       // setInputActivate(true);
-      // setAllocationInputValue('전략 이름을 입력해주세요.');
-      setInputActivate(false);
+      setStrategyName('전략 이름을 입력해주세요.');
     }
   };
 
-  // input 태그 외의 영역을 클릭했을 때의 이벤트
+  // input 태그 외의 영역을 클릭했을 때 전략 이름 입력부분의 조건에 따라서 값을 초기화
   useEffect(() => {
     document.addEventListener('click', handleClickOutside);
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
-  }, []);
+  }, [strategyName]);
   // 모달 활성화 함수
   const showModalValues = ( modalType: 'allocation' | 'rebalancing' ) => {
     // 입력 받은 문자에 맞는 모달을 활성화하게 함
@@ -93,11 +109,14 @@ const Main: React.FC<MainProps> = ({ children }) => {
                 <input
       ref={inputRef}
       type="text"
-      value={inputActivate === true ? allocationInputValue : undefined}
+      value={strategyName}
       maxLength={30}
       onClick={() => {
-        activateInputArea('allocation');
+        if (strategyName === '전략 이름을 입력해주세요.') {
+          setStrategyName('');
+        }
       }}
+      onChange={changeStrategyName}
       autoComplete='off'
     />
                 </div>
@@ -137,7 +156,7 @@ const Main: React.FC<MainProps> = ({ children }) => {
                   <div className='css-xu7bpf'>자산배분 알고리즘</div>
                   {/* 밑의 모달창 선택 값에 따라서 value 변경되야하는 부분 */}
                   <div id='StaticAlog' className='css-cy3vpx' onClick={() =>showModalValues('allocation')}>
-                    <input id='StaticAlog' type="text" name="" readOnly className='select_container css-1jxlxru' autoComplete='off' value={'전략배분 (정적자산배분)'}/>
+                    <input id='StaticAlog' type="text" name="" readOnly className='select_container css-1jxlxru' autoComplete='off' value={allocationInputValue}/>
                   </div>
                 </div>
                   {/* 모달창 토글 버튼 */}
@@ -153,7 +172,11 @@ const Main: React.FC<MainProps> = ({ children }) => {
                   {allocationModalValues.map((item, index) => (
                     <div key={index} onClick={() => showModalValues('allocation')}>
                       <div id={`${index}`} className='css-cy3vpx'>
-                        <input id={`${index}`} className={allocationModalClassNameState === index ? 'css-1ufv36b' : 'css-1uubgwg'} type="text" readOnly autoComplete='off' value={item} onClick={() => changeModalClassName('allocation', index)}/>
+                        <input id={`${index}`} className={allocationModalClassNameState === index ? 'css-1ufv36b' : 'css-1uubgwg'} type="text" readOnly autoComplete='off' value={item} onClick={() => {
+                          // className 변경 함수
+                          changeModalClassName('allocation', index);
+                          // input value 변경 함수
+                          changeInputValue('allocation', item);}}/>
                       </div>
                     </div>
                     ))}
@@ -164,7 +187,7 @@ const Main: React.FC<MainProps> = ({ children }) => {
               <div>
                 <div className='css-1yqaytz'>초기 투자 금액</div>
                 <div className='css-cy3vpx'>
-                  <input type="text" placeholder='초기 투자 금액을 입력해주세요.' className='css-q4pyu0' autoComplete='off'/>
+                  <input type="text" value={initialInvestmentValue} placeholder='초기 투자 금액을 입력해주세요.' className='css-q4pyu0' onChange={inputValueSensor} autoComplete='off'/>
                   <p className='css-1226vig'>만원</p>
                 </div>
               </div>
@@ -173,7 +196,7 @@ const Main: React.FC<MainProps> = ({ children }) => {
                 <div>
                   <div className='css-r80uh2'>주기 리밸런싱</div>
                   <div id='staticRebalancing' className='css-cy3vpx' onClick={() => showModalValues('rebalancing')}>
-                    <input type="text" placeholder='주기 리밸런싱을 선택해주세요' readOnly autoComplete='off' id="staticRebalancing" className='css-1jxlxru' />
+                    <input type="text" value={rebalancingInputValue} readOnly autoComplete='off' id="staticRebalancing" className='css-1jxlxru' />
                   </div>
                 </div>
                 <div id='staticRebalancing' className='open_option css-ppidyn'>
@@ -184,7 +207,12 @@ const Main: React.FC<MainProps> = ({ children }) => {
                 {rebalancingModalState && (
                   <div className='css-1g43kch'>
                   {rebalancingModalValues.map((item, index) => (
-                    <div key={index} onClick={() => showModalValues('rebalancing')}>
+                    <div key={index} onClick={() => {
+                      // 모달 활성화
+                      showModalValues('rebalancing');
+                      // inpu value 변경
+                      changeInputValue('rebalancing', item);
+                    }}>
                       <div id={`${index}`} className='css-cy3vpx'>
                         <input id={`${index}`} className={rebalancingModalClassNameState === index ? 'css-1ufv36b' : 'css-1uubgwg'} type="text" readOnly autoComplete='off' value={item} onClick={() => changeModalClassName('rebalancing', index)}/>
                       </div>
