@@ -29,16 +29,22 @@ const Main: React.FC<MainProps> = ({ children }) => {
   // 전략 이름 입력 부분 state
   const [strategyName, setStrategyName] = useState<string>('전략 이름을 입력해주세요.');
   // 전략 자산 '접기, 펼치기'
-  const [foldingState, setFoldingState] = useState(false);
+  const [foldingState, setFoldingState] = useState(true);
 
   // 클릭하면 자산군 div 추가
-  const addAssetDiv = () => {
-    setAssetDiv(prevDivs => [
+  const addAssetDivs = () => {
+    console.log('Adding new div');
+    setAssetDiv((prevDivs) => [
       ...prevDivs,
-      <div key={prevDivs.length}>새로운 div</div>,
+      <div key={prevDivs.length} className='MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-1s50f5r'>
+        <div className='"MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-17ciadl'>
+          <div></div>
+            <div>하이</div>
+          </div>
+        </div>
+      </div>,
     ]);
   };
-  // 나머지 코드는 이전과 동일하게 유지됩니다.
   
   const changeStrategyName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setStrategyName(event.target.value);
@@ -258,8 +264,7 @@ const Main: React.FC<MainProps> = ({ children }) => {
                 <div className='css-18ru846'>
                   <div className='css-1j8i7mp'>
                     <div className='css-192m3r6'>
-                      {/* onclick 하면 이미지 	https://www.quantus.kr/static/media/clickCheckBox.eb67ac97b1bde3053a63997d27658439.svg로 바뀌어야함
- */}
+                      {/* onclick 하면 이미지 	https://www.quantus.kr/static/media/clickCheckBox.eb67ac97b1bde3053a63997d27658439.svg로 바뀌어야함 */}
                       <img src="https://www.quantus.kr/static/media/checkBoxDefault.c07524e01b9d604f81a0269a5fd614f0.svg" alt="" className='css-1xsl7pa' style={{cursor :'pointer'}}/>
                       <div>전체 환율 반영</div>
                     </div>
@@ -267,14 +272,19 @@ const Main: React.FC<MainProps> = ({ children }) => {
                 </div>
               </div>
               {/* 자산군 추가 부분 */}
-              <div className={foldingState ? 'css-1kjuv0i' : 'css-1gtil7u'}>
+              <div className={foldingState ? 'css-1gtil7u' : 'css-1kjuv0i'}>
                 <div className='css-5bbky6'>
+                  {/* 자산 추가 버튼눌렀을 때 보여줄 UI */}
                   {assetClassState ?
-                  // true일 때 보여줄 내용
+                  // assetClassState가 true 때 보여줄 내용
                   (<><div className='css-zay56g'>
-                    <div className='css-2fefu9' style={foldingState ? ({ display : 'flex', alignItems : 'center', justifyContent : 'space-between'}) : ({display : 'flex', alignItems :'center', justifyContent : 'space-between', marginBottom : '10px'})}>
-                    <p>자산군 추가 트루일 때</p>
-                    <div className='css-14slbl7' onClick={() => showModalValues('addAsset')}>{foldingState ? '접기' : '펼치기'}<img src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg" alt="arrowIcon" onClick={addAssetDiv} className={foldingState ? 'css-1gn5vo1': 'css-6d3iyv'}/>
+                    <div className='css-2fefu9' style={foldingState ?
+                    // 펼쳐져 있을 때
+                    ({display : 'flex', alignItems :'center', justifyContent : 'space-between', marginBottom : '10px'}):
+                    // 접혀 있을 때
+                    ({ display : 'flex', alignItems : 'center', justifyContent : 'space-between'})}>
+                    <p>자산군 추가 false</p>
+                    <div className='css-14slbl7' onClick={() => showModalValues('addAsset')}>{foldingState ? '펼치기' : '접기'}<img src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg" alt="arrowIcon" className={foldingState ? 'css-1gn5vo1': 'css-6d3iyv'}/>
                     </div>
                   </div>
                   <div className='css-rtde4j'></div>
@@ -283,9 +293,10 @@ const Main: React.FC<MainProps> = ({ children }) => {
                   <div className='MuiBox-root css-1z0pfhy'>
                     {/* grid 템플릿 */}
                     <div className='css-yyszln'>
+                    {/* div이 추가될 곳 */}
                     {assetDiv.map((div, index) => (
-        <div key={index}>{div}</div>
-      ))}
+          <div key={index}>{div}</div>
+        ))}
                     </div>
                   </div>
                   </>
@@ -293,19 +304,19 @@ const Main: React.FC<MainProps> = ({ children }) => {
                   // false일 때 보여줄 내용
                   (<div className='css-2fefu9' style={foldingState ? ({ display : 'flex', alignItems : 'center', justifyContent : 'space-between'}) : ({display : 'flex', alignItems :'center', justifyContent : 'space-between', marginBottom : '10px'})}>
                   <p>자산군 추가 false</p>
-                  <div className='css-14slbl7' onClick={() => showModalValues('addAsset')}>{foldingState ? '접기' : '펼치기'}<img src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg" alt="arrowIcon" className={foldingState ? 'css-1gn5vo1': 'css-6d3iyv'}/></div>
+                  <div className='css-14slbl7' onClick={() => showModalValues('addAsset')}>{foldingState ? '펼치기' : '접기'}<img src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg" alt="arrowIcon" className={foldingState ? 'css-6d3iyv' : 'css-1gn5vo1'}/></div>
                 </div>)}
-
-                  {foldingState && (<div className='MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-185r4pm' onClick={() => {setAssetClassState(true);
+                  {/* 자산 추가부분이 닫혀있을 때 보여줄 컴포넌트 */}
+                  {!foldingState && (
+                  <div className={assetClassState ? 'MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-yaj938' : 'MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-185r4pm'} onClick={() => {setAssetClassState(true);
                   console.log('클릭 됨?', assetClassState) }
                 }>
-                    <div className='MuiBox-root css-79elbk'>
+                    <div className='MuiBox-root css-79elbk' onClick={addAssetDivs}>
                       <img src="https://quantus.kr/static/media/assetAddIcon.5c650e6cec8030c8302335ae8189dc48.svg" alt="addIcon" style={{marginLeft :'157px', marginTop : '73px', width : '55px'}}/>
                     </div>
                   </div>)}
                 </div>
               </div>
-              {/* <div className='css-1kjuv0i'></div> */}
               <div style={{marginTop : '80px', fontSize : '18px', fontWeight : '500'}}>마켓 타이밍 설정</div>
               <div className='css-1lytgsp'></div>
               <div className='css-y4fv1w'></div>
