@@ -43,7 +43,7 @@ const Header = () : JSX.Element => {
       {/* 중단 영역 */}
       <div className='css-j1yknm'>
         <div className='css-jhvj32'>
-          <img className='logo' src={Logo} alt="" style={{width : '191px', height : '37px'}}/>
+          <img className='logo' src={Logo} alt="" style={{width : '191px', height : '37px'}} onClick={()=> {window.location.href ='/'}}/>
           <h2>풀스택 개발자 장루빈</h2>
           <div className='css-1gf2x3a'>
             <div className='css-ov1ktg'>
