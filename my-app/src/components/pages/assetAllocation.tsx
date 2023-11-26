@@ -1,11 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-
-
 const AssetAllocationPage = () : JSX.Element => {
   // 로딩 화면을 처리하기 위한 state
   const [isLoading, setLoading] = useState(false);
-  // 대규모 데이터를 처리하기 위한 state
-  const [currentScroll, setCurrentScroll] = useState(1);
   // 자산 추가에 사용하기 위한 state
   const [assetClassState, setAssetClassState] = useState(false);
   // 자산 추가 div을 저장할 상태 배열
@@ -27,6 +23,14 @@ const AssetAllocationPage = () : JSX.Element => {
   // 자산 추가 부분 '종류' input 태그 value State
   const [assetTypeInputValue, setAssetTypeInputValue] = useState<string>('한국 자산군');
   const [assetTypeModalState, setAssetTypeModalState] = useState(false);
+  const saveAlleInputData = ()=> {
+    localStorage.setItem('allocationInputValue', JSON.stringify(allocationInputValue));
+    localStorage.setItem('assetTypeInputValue', JSON.stringify(assetTypeInputValue));
+    localStorage.setItem('assetClassInputValue', JSON.stringify(assetClassInputValue));
+    localStorage.setItem('assetProportionInputValue', JSON.stringify(assetProportionInputValue));
+    localStorage.setItem('rebalancingInputValue', JSON.stringify(rebalancingInputValue));
+    localStorage.setItem('initialInvestmentValue', JSON.stringify(initialInvestmentValue));
+  }
   // 자산 추가 부분 '자산군' input 태그 value State
   const [assetClassInputValue, setAssetClassInputValue] = useState<string>('');
   const [assetClassModalState, setAssetClassModalState] = useState<boolean>(false);
@@ -50,6 +54,7 @@ const AssetAllocationPage = () : JSX.Element => {
   const korean_AssetClass = ['코스닥 (코스닥)', '코스닥 인버스 (코스닥 인버스)', '코스피 (코스피)', '코스피 인버스 (코스피 인버스)', '한국10년국채 (한국10년국채)'];
   const USA_AssetClass = ['S&P500', 'S&P500인버스', '금', '나스닥', '나스닥 인버스', '미국10년국채', '미국2년국채', '미국30년국채', '미국단기채', '원자재', '전세계 주식'];
   const strategy_AssetClass = ['신마법 공식', '무작정따라하기_정상가치(소형주)', '무작정따라하기_성장가치(소형주, 미국)', '강환국_울트라전략', '켄피셔_대형주전략(미국)', '소형주 10팩터(성장가치+시총+종가)', '한,미 롱숏 영구포트폴리오', '퀀터스 베타 중립 전략', '소형주70-인버스30 전략(백테스트)', '소형주70-인버스30 전략(실전투자)'];
+  
   const resetAllInputData = () => {
     setAssetDiv([]);
     setAllocationInputValue('전략배분 (정적자산배분)');
@@ -79,25 +84,22 @@ const AssetAllocationPage = () : JSX.Element => {
   // 대량의 배열 데이터를 불러오는데 사용 할 state
   const [items, setItems] = useState<string[]>([]);
   // 최대 몇개의 index를 가져올지에 사용할 state
-  const [loadedCount, setLoadedCount] = useState<number>(10);
+  const [loadedCount, setLoadedCount] = useState<number>(30);
 
   // AssetSimulationInvestment 함수를 통해 데이터를 불러오는 부분
   const loadMoreItems = () => {
     // 현재 로드된 아이템 수에 10을 더하여 업데이트
-    setLoadedCount((prevCount) => prevCount + 10);
+    setLoadedCount((prevCount) => prevCount + 30);
   };
   const backTest = () => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, 6000);
+    }, 50000);
   }
   useEffect(() => {
-    // AssetSimulationInvestment 함수를 통해 데이터 불러오기
     const newData = AssetSimulationInvestment(assetTypeInputValue);
-    // 현재 로드된 아이템 수에 따라 데이터 슬라이싱
     const visibleItems = newData.slice(0, loadedCount);
-    // 로드된 아이템 업데이트
     setItems(visibleItems);
   }, [assetTypeInputValue, loadedCount]);
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
@@ -105,6 +107,7 @@ const AssetAllocationPage = () : JSX.Element => {
     // 스크롤이 절반 이상 내려갔을 때 추가 아이템 로드
     if (scrollTop > scrollHeight / 2) {
       loadMoreItems();
+      console.log('새로운 아이템 불러옴');
     }
   };
   const showModalValues = ( modalType: 'allocation' | 'rebalancing' | 'addAsset' | 'assetClass' | 'assetType' ) => {
@@ -217,9 +220,10 @@ const AssetAllocationPage = () : JSX.Element => {
                     </div>
                     <div className='css-rubi'>
                         {/* 자산군 리스트 */}
-                        <div style={{width : '100%', height : '100%' , overflowY: 'auto'}} onScroll={handleScroll}>
+                        <div style={{width : '100%', height : '100%' , overflowY: 'auto'}} onScroll={handleScroll} >
+                        
                         {AssetSimulationInvestment(assetTypeInputValue).map((item, index) => (
-    <div style={{position : 'relative', left : '0px', top : '0px', height : '48px', width : '100%'}} key={index}>
+    <div style={{position : 'relative', left : '0px', top : '0px', height : '48px', width : '100%'}} key={index} onClick={()=> {changeInputValue('assetClass', item)}}>
       <div id={`자산 ${index}option`} className='css-v47cll'>
         <input  id={`자산 ${index}option`} type="text" readOnly className='css-kfyu6' autoComplete='off' value={item} />
       </div>
@@ -230,14 +234,27 @@ const AssetAllocationPage = () : JSX.Element => {
                 </div>
               </div>
               {/* 비중 */}
-              {assetTypeInputValue.includes('미국') &&<div>
+              <div>
                 <div className='css-zp7i86'>비중</div>
                 <div id={`자산 ${prevDivs.length+1}.value`} className='css-3ut2hf'>
                   <input onChange={(e) => inputValueSensor(e, 'proportion')} type="text" id={`자산 ${prevDivs.length+1}.value`} className='css-qc8k2' autoComplete='off'value={assetProportionInputValue}/>
                   <p className='css-1226vig'>%</p>
                 </div>
                 <p className='css-l1mo21'>0 ~ 100 까지 입력할 수 있습니다.</p>
-              </div>}
+              </div>
+              {/* 환율 반영 */}
+              {assetTypeInputValue.includes('미국') &&<div className='css-145u05m'>
+                <div className='css-1v9u2uj'>환율 반영</div>
+                <div className='css-1348ahq'>
+                  <div className='css-1ugxx24'>
+                    <div className='css-192m3r6'>
+                      <img src="https://quantus.kr/static/media/noneClickBox.2841b791455702202e56961ac449e476.svg" onClick={()=> {
+
+                      }} alt="check" className='css-1xsl7pa'/>
+                    </div>
+                  </div>
+                </div>
+                </div>}
             </div>
           </div>
         </div>
@@ -352,7 +369,7 @@ const AssetAllocationPage = () : JSX.Element => {
     />
                 </div>
                 {/* 저장 버튼 */}
-                <div className='css-10p2e9r'>
+                <div className='css-10p2e9r' onClick={saveAlleInputData}>
                   <div className={strategyName !== '전략 이름을 입력해주세요.' ? 'css-efe8wa' : 'css-1mvfl8k' }>
                     <div className={strategyName !== '전략 이름을 입력해주세요.' ? 'css-1jbl1jl' : 'css-reou0t'}>저장</div>
                   </div>
@@ -492,11 +509,12 @@ const AssetAllocationPage = () : JSX.Element => {
                   </div>
                   {/* 자산 추가되있을 때 생길 div foldingState가 true일 때 나옴*/}
                   {foldingState && <div className='css-rtde4j'>
-                    div만큼 생김
-                    <div className='css-3k5dqj'>
-                      <p className='css-zrc6se'>자산 01</p>
-                      <div className='css-j63mwv'>예시 ) 무작정 따라하기</div>
+                    {/* {assetClassInputValue.map((item, index)=> {
+                      <div className='css-3k5dqj'>
+                      <p className='css-zrc6se'>자산 {index}</p>
+                      <div className='css-j63mwv'>{assetClassInputValue}</div>
                     </div>
+                    })} */}
                   </div>}
                   {/* 자산 추가 버튼 -> 추가 요소 생기기 전 */}
                   </div>
@@ -572,9 +590,10 @@ const AssetAllocationPage = () : JSX.Element => {
                 <div className='second_btn_wrapper'>
   <div className='css-cssveg'>
     <div onClick={backTest} className='css-10p2e9r'>
-      {isLoading ? (
+      {isLoading ? (<>
+        <div className='loading_wrap'>로딩</div>
         <div className='loading'>Loading&#8230;</div>
-      ) : (
+        </>) : (
         <div className='css-1dflnl9'>
           <div className='css-1qm89cl'>백테스트</div>
         </div>
