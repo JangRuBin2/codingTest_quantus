@@ -5,6 +5,8 @@ interface MainProps {
 }
 
 const Main: React.FC<MainProps> = ({ children }) => {
+  // 대규모 데이터를 처리하기 위한 state
+  const [currentScroll, setCurrentScroll] = useState(1);
   // 자산 추가에 사용하기 위한 state
   const [assetClassState, setAssetClassState] = useState(false);
   // 자산 추가 div을 저장할 상태 배열
@@ -75,24 +77,73 @@ const Main: React.FC<MainProps> = ({ children }) => {
         return korean_AssetClass;
     }
   };
+  // 대량의 배열 데이터를 불러오는데 사용 할 state
+  const [items, setItems] = useState<string[]>([]);
+  // 최대 몇개의 index를 가져올지에 사용할 state
+  const [loadedCount, setLoadedCount] = useState<number>(10);
+
+  // AssetSimulationInvestment 함수를 통해 데이터를 불러오는 부분
+  const loadMoreItems = () => {
+    // 현재 로드된 아이템 수에 10을 더하여 업데이트
+    setLoadedCount((prevCount) => prevCount + 10);
+  };
+  useEffect(() => {
+    // AssetSimulationInvestment 함수를 통해 데이터 불러오기
+    const newData = AssetSimulationInvestment(assetTypeInputValue);
+    
+    // 현재 로드된 아이템 수에 따라 데이터 슬라이싱
+    const visibleItems = newData.slice(0, loadedCount);
+    
+    // 로드된 아이템 업데이트
+    setItems(visibleItems);
+  }, [assetTypeInputValue, loadedCount]);
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
+
+    // 스크롤이 절반 이상 내려갔을 때 추가 아이템 로드
+    if (scrollTop > scrollHeight / 2) {
+      loadMoreItems();
+    }
+  };
   const showModalValues = ( modalType: 'allocation' | 'rebalancing' | 'addAsset' | 'assetClass' | 'assetType' ) => {
     // 입력 받은 문자에 맞는 모달을 활성화하게 함
     console.log('모달 활성화 버튼 눌림');
     if (modalType === 'allocation') {
+    setFoldingState(true);
     setAssetTypeModalState(false);
+    setAssetClassModalState(false);
+    setRebalancingModalState(false);
     setAllocationModalState(!allocationModalState);
     } else if (modalType === 'rebalancing') {
+    setFoldingState(true);
+    setAssetClassModalState(false);
     setAssetTypeModalState(false);
+    setAllocationModalState(false);
     setRebalancingModalState(!rebalancingModalState);
+    setFoldingState(true);
     } else if (modalType === 'addAsset') {
+    setAssetTypeModalState(false);
+    setAllocationModalState(false);
+    setRebalancingModalState(false);
+    setAssetClassModalState(false);
     setFoldingState(!foldingState);
     } else if (modalType === 'assetClass') {
+    setFoldingState(false);
+    setRebalancingModalState(false);
+    setAllocationModalState(false);
+    setAssetTypeModalState(false);
     setAssetClassModalState(!assetClassModalState);
-    console.log(assetClassModalState);
     } else if (modalType === 'assetType') {
+    setFoldingState(false);
+    setAssetClassModalState(false);
+    setAllocationModalState(false);
+    setRebalancingModalState(false);
     setAssetTypeModalState(!assetTypeModalState);
-    console.log(assetTypeModalState);
     }
+  };
+  const removeAssetDivs = () => {
+    // 태그를 삭제
+    setAssetDiv((prevDivs) => prevDivs.slice(0, -1));
   };
   // 클릭하면 자산군 div 추가
   const addAssetDivs = () => {
@@ -103,7 +154,7 @@ const Main: React.FC<MainProps> = ({ children }) => {
         <div className='"MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-17ciadl'>
           <div className='css-1sg2lsz'>
             <div className='css-1y6kizi'>
-              <div className='MuiBox-root css-plq0ok' id ={`자산 ${prevDivs.length + 1}`}>
+              <div onClick={removeAssetDivs} className='MuiBox-root css-plq0ok' id ={`자산 ${prevDivs.length + 1}`}>
                 <img src="https://quantus.kr/static/media/close.07f49c968bc3e6f2992869fcb645f8db.svg
 " alt="closeIcon" style={{cursor : 'pointer', width : '13px', filter : 'invert(47%) sepia(4%) saturate(8%) hue-rotate(329deg) brightness(100%) contrast(89%)', }} />
               </div>
@@ -164,25 +215,28 @@ const Main: React.FC<MainProps> = ({ children }) => {
                       <img src="https://quantus.kr/static/media/search.9478e73e81517344a63859a557b85c6e.svg" alt="search" />
                     </div>
                     <div className='css-rubi'>
-                      <div style={{height : '0px', width : '100%'}}>
                         {/* 자산군 리스트 */}
+                        <div style={{width : '100%', height : '100%' , overflowY: 'auto'}} onScroll={handleScroll}>
                         {AssetSimulationInvestment(assetTypeInputValue).map((item, index) => (
-    <div key={index}>{item}</div>
-  ))}
-                      </div>
+    <div style={{position : 'relative', left : '0px', top : '0px', height : '48px', width : '100%'}} key={index}>
+      <div id={`자산 ${index}option`} className='css-v47cll'>
+        <input  id={`자산 ${index}option`} type="text" readOnly className='css-kfyu6' autoComplete='off' value={item} />
+      </div>
+      </div>
+  ))}</div>
                     </div>
                     </div>}
                 </div>
               </div>
               {/* 비중 */}
-              <div>
+              {assetTypeInputValue.includes('미국') &&<div>
                 <div className='css-zp7i86'>비중</div>
                 <div id={`자산 ${prevDivs.length+1}.value`} className='css-3ut2hf'>
                   <input onChange={(e) => inputValueSensor(e, 'proportion')} type="text" id={`자산 ${prevDivs.length+1}.value`} className='css-qc8k2' autoComplete='off'value={assetProportionInputValue}/>
                   <p className='css-1226vig'>%</p>
                 </div>
                 <p className='css-l1mo21'>0 ~ 100 까지 입력할 수 있습니다.</p>
-              </div>
+              </div>}
             </div>
           </div>
         </div>
@@ -256,7 +310,10 @@ const Main: React.FC<MainProps> = ({ children }) => {
     }
   };
   
-  
+  useEffect(() => {
+    // 변경된 state에 대한 처리
+    console.log('State updated:', assetTypeInputValue);
+  }, [assetTypeModalState, assetClassModalState]);
   // 하단으로 이동 이벤트 함수
   const scrollToBottom = () => {
     window.scrollTo({
@@ -477,7 +534,7 @@ const Main: React.FC<MainProps> = ({ children }) => {
                   {/* 폴더는 열려있지만 자산 추가부분이 활성화 되지 않았을 때 보여줄 컴포넌트 */}
                   {!foldingState && !assetClassState && (
                   <div className={assetClassState ? 'MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-yaj938' : 'MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-185r4pm'} onClick={() => {setAssetClassState(true);
-                  console.log('클릭 됨?', assetClassState) }
+                  console.log('클릭 됨?', assetClassState);}
                 }>
                     <div className='MuiBox-root css-79elbk' onClick={addAssetDivs}>
                       <img src="https://quantus.kr/static/media/assetAddIcon.5c650e6cec8030c8302335ae8189dc48.svg" alt="addIcon" style={assetTypeModalState ? ({width : '55px'}) : ({marginLeft :'157px', marginTop : '73px', width : '55px'})}/>

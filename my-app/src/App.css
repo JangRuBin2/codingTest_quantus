@@ -729,7 +729,7 @@ a {
 }
 .css-rubi {
   position: relative;
-  height: 482px;
+  height: 500px;
   width: 100%;
   will-change: transform;
   direction: ltr;
@@ -830,6 +830,27 @@ a {
     max-width: 50%;
     box-sizing: border-box;
     margin: 0px;
+}
+.css-kfyu6 {
+  background: rgb(30, 30, 30);
+  text-align: center;
+  font-size: 16px;
+  color: rgb(230, 230, 230);
+  width: 310px;
+  height: 47px;
+  border: none;
+  outline: rgb(159, 159, 159) solid 1px;
+  padding: 0px 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-radius: 0px;
+  font-weight: 300;
+  cursor: pointer;
+}
+.css-v47cll {
+  position: relative;
+  width: 310px;
 }
 .css-yaj938 {
   color: rgba(0, 0, 0, 0.87);
