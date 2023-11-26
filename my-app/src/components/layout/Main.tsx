@@ -15,14 +15,23 @@ const Main: React.FC<MainProps> = ({ children }) => {
   const [rebalancingModalState, setRebalancingModalState] = useState(false);
   // 주기 리밸런싱 모달 className state
   const [rebalancingModalClassNameState, setRebalancingModalClassNameState] = useState<null | number>(null);
+  // 주기 리밸런싱 모달 className state
+  const [assetTypeModalClassNameState, setAssetTypeModalClassNameState] = useState<null | number>(null);
+  // 주기 리밸런싱 모달 className state
+  const [assetClassModalClassNameState, setAssetClassModalClassNameState] = useState<null | number>(null);
   // 자산 배분 알고리즘 모달 className state
   const [allocationModalClassNameState, setAllocationModalClassNameState] = useState<null | number>(null);
   // 전략 이름 입력 input태그 value state
   const [allocationInputValue, setAllocationInputValue] = useState<any>('전략배분 (정적자산배분)');
   // 자산 추가 부분 '종류' input 태그 value State
   const [assetTypeInputValue, setAssetTypeInputValue] = useState<string>('한국 자산군');
+  const [assetTypeModalState, setAssetTypeModalState] = useState(false);
   // 자산 추가 부분 '자산군' input 태그 value State
   const [assetClassInputValue, setAssetClassInputValue] = useState<string>('');
+  const [assetClassModalState, setAssetClassModalState] = useState<boolean>(false);
+  // 자산군 추가 비중 input value
+  const [assetProportionInputValue, setAssetProportionInputValue] = useState<string | number>(0);
+  // const [assetProportionState, setAssetProportionState] = useState<boolean>(false);
   // 전략 이름 입력 input태그 value state
   const [rebalancingInputValue, setrebalancingInputValue] = useState<any>('주기 리밸런싱을 선택해주세요.');
   // input 태그 이벤트에 사용함
@@ -35,6 +44,25 @@ const Main: React.FC<MainProps> = ({ children }) => {
   // 전략 자산 '접기, 펼치기'
   const [foldingState, setFoldingState] = useState(true);
 
+  const showModalValues = ( modalType: 'allocation' | 'rebalancing' | 'addAsset' | 'assetClass' | 'assetType' ) => {
+    // 입력 받은 문자에 맞는 모달을 활성화하게 함
+    console.log('모달 활성화 버튼 눌림');
+    if (modalType === 'allocation') {
+    setAssetTypeModalState(false);
+    setAllocationModalState(!allocationModalState);
+    } else if (modalType === 'rebalancing') {
+    setAssetTypeModalState(false);
+    setRebalancingModalState(!rebalancingModalState);
+    } else if (modalType === 'addAsset') {
+    setFoldingState(!foldingState);
+    } else if (modalType === 'assetClass') {
+    setAssetClassModalState(!assetClassModalState);
+    console.log(assetClassModalState);
+    } else if (modalType === 'assetType') {
+    setAssetTypeModalState(!assetTypeModalState);
+    console.log(assetTypeModalState);
+    }
+  };
   // 클릭하면 자산군 div 추가
   const addAssetDivs = () => {
     console.log('Adding new div');
@@ -42,33 +70,64 @@ const Main: React.FC<MainProps> = ({ children }) => {
       ...prevDivs,
       <div key={prevDivs.length} className='MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-1s50f5r'>
         <div className='"MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-17ciadl'>
-          <div>
-            <div className='MuiPaper_title'>자산{prevDivs.length + 1}</div>
-            <div className='MuiPaper_Container'>
-              <div className='MuiPaper_Box'>
-                <p>종류</p>
-                <div>
-                <input type="text" value={assetTypeInputValue}/>
-                <img src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg" alt="arrowDown" />
+          <div className='css-1sg2lsz'>
+            <div className='css-1y6kizi'>
+              <div className='MuiBox-root css-plq0ok' id ={`자산 ${prevDivs.length + 1}`}>
+                <img src="https://quantus.kr/static/media/close.07f49c968bc3e6f2992869fcb645f8db.svg
+" alt="closeIcon" style={{cursor : 'pointer', width : '13px', filter : 'invert(47%) sepia(4%) saturate(8%) hue-rotate(329deg) brightness(100%) contrast(89%)', }} />
+              </div>
+              <div className='css-10kte4f'>{prevDivs.length + 1}</div>
+              <div className='MuiStack-root css-5qklr4'>
+                <div className='css-1k9uakg'>
+                  <div>
+                    <div className='css-osjlk'>종류</div>
+                    <div className='css-29wi6k' onClick={() => showModalValues('assetType')}>
+                      <input type="text" readOnly autoComplete='off' value={assetTypeInputValue} className='select_container css-mxr2pk' />
+                    </div>
+                  </div>
+                  <div className='open_option css-ppidyn'>
+                    <div>
+                      <img src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg
+" alt="arrowDown" />
+                    </div>
+                  </div>
+                  {assetTypeModalState && (<div className='css-13ggkmh'>
+                  {assetTypeModalValues.map((item, index) => (
+                    <div key={index} style={{zIndex : '5'}} >
+                      <div id='staticRebalancing' className='css-29wi6k'>
+                        <input id='staticRebalancing' className={assetTypeModalClassNameState === index ? 'css-1b9fiqz' : 'css-1uubgwg'} type="text" readOnly autoComplete='off' value={item} onClick={() => {
+                          // className 변경 함수
+                          changeModalClassName('assetType', index);
+                          // input value 변경 함수
+                          changeInputValue('assetType', item);}}/>
+                      </div>
+                    </div>
+                    ))}
+                  </div>)}
+                </div>
+                <div className='css-17n4kgf'>자산군</div>
+                <div className='css-1bp4bsu' style={{marginTop : '28px'}}>
+                  <div className='' style={{position: 'relative'}}>
+                    <div className='css-cpdvyf'>
+                      <div id={`자산 ${prevDivs.length+1}.option`} className='css-26tdca'>
+                        <div className='css-10wwlpq'></div>
+                      </div>
+                    </div>
+                    <div id={`자산 ${prevDivs.length+1}.option`} className='css-62v0aq'>
+                      <img src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg" alt="arrowDown" />
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className='MuiPaper_Box'>
-                <p>자산군</p>
-                <div>
-                <div>{assetClassInputValue}</div>
-                <img src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg" alt="arrowDown" />
+              {/* 비중 */}
+              <div>
+                <div className='css-zp7i86'>비중</div>
+                <div id={`자산 ${prevDivs.length+1}.value`} className='css-3ut2hf'>
+                  <input type="text" id={`자산 ${prevDivs.length+1}.value`} className='css-qc8k2' autoComplete='off'value={assetProportionInputValue}/>
+                  <p  >%</p>
                 </div>
+                <p className='css-l1mo21'>0 ~ 100 까지 입력할 수 있습니다.</p>
               </div>
-              <div className='MuiPaper_Box'>
-                <p>비중</p>
-                <div>
-                <input type="text" value={'0'}/><p>%</p>
-                <img src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg" alt="arrowDown" />
-                </div>
-                <p>0 ~ 100까지 입력할 수 있습니다.</p>
-              </div>
-
-
             </div>
           </div>
         </div>
@@ -80,15 +139,19 @@ const Main: React.FC<MainProps> = ({ children }) => {
     setStrategyName(event.target.value);
   }
   // modal창의 요소 클릭하면 input tag value속성 변경 이벤트
-  const changeInputValue = (modalType : 'allocation' | 'rebalancing' ,item : string) => {
+  const changeInputValue = (modalType : 'allocation' | 'rebalancing' | 'assetClass' | 'assetType' ,item : string) => {
     if (modalType === 'allocation') {
       setAllocationInputValue(item);
     } else if (modalType === 'rebalancing') {
       setrebalancingInputValue(item);
+    } else if (modalType === 'assetClass') {
+      setAssetClassInputValue(item);
+    } else if (modalType === 'assetType') {
+      setAssetTypeInputValue(item);
     }
   };
 // 입력된 값이 타입과 일치하는지 확인해주는 함수
-  const inputValueSensor = (event: React.ChangeEvent<HTMLInputElement>, output : 'Investment' | 'rebalancing') => {
+  const inputValueSensor = (event: React.ChangeEvent<HTMLInputElement>, output : 'Investment' | 'rebalancing' | 'proportion') => {
     // 입력된 값이 숫자인지 확인
     const numericValue = Number(event.target.value);
     // 숫자인 경우에만 state 업데이트
@@ -97,6 +160,8 @@ const Main: React.FC<MainProps> = ({ children }) => {
         setInitialInvestmentValue(numericValue);
       } else if (output === 'rebalancing') {
         setRebalancingValue(numericValue);
+      } else if (output === 'proportion') {
+
       }
     }
   };
@@ -118,20 +183,9 @@ const Main: React.FC<MainProps> = ({ children }) => {
     };
   }, [strategyName]);
   // 모달 활성화 함수
-  const showModalValues = ( modalType: 'allocation' | 'rebalancing' | 'addAsset' ) => {
-    // 입력 받은 문자에 맞는 모달을 활성화하게 함
-    if (modalType === 'allocation') {
-    setRebalancingModalState(false);
-    setAllocationModalState(!allocationModalState);
-    } else if (modalType === 'rebalancing') {
-    setAllocationModalState(false);
-    setRebalancingModalState(!rebalancingModalState);
-    } else if (modalType === 'addAsset') {
-    setFoldingState(!foldingState);
-    }
-  };
   
-  const changeModalClassName = (modalType: 'allocation' | 'rebalancing' | 'arrow' ,index : number) => {
+  
+  const changeModalClassName = (modalType: 'allocation' | 'rebalancing' | 'arrow' | 'assetType' | 'assetClass',index : number) => {
     // 모달 className 변경 함수
     // 자산 배분 알고리즘
     if (modalType === 'allocation') {
@@ -139,6 +193,10 @@ const Main: React.FC<MainProps> = ({ children }) => {
     // 주기 리밸런싱
     } else if (modalType === 'rebalancing') {
     setRebalancingModalClassNameState(index);
+    } else if (modalType === 'assetType') {
+      setAssetTypeModalClassNameState(index);
+    } else if (modalType === 'assetClass') {
+      setAssetClassModalClassNameState(index);
     }
   };
   const allocationModalValues = ['전략 배분 (정적 자산배분)', '듀얼 모멘텀', 'VAA', 'DAA', 'BAA 공격형', 'BAA 중도형', 'LAA', 'HAA', '변형듀얼모멘텀', '가속듀얼모멘텀'];

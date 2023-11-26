@@ -747,3 +747,183 @@ a {
   border-radius: 12px;
   border: 1px solid rgb(159, 159, 159);
 }
+.css-1sg2lsz {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+}
+.css-1y6kizi {
+  margin-right: 18px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.css-plq0ok {
+  cursor: pointer;
+  width: 20px;
+  margin-top: 12px;
+  position: relative;
+  left: 310px;
+}
+.css-10kte4f {
+  color: rgb(252, 252, 252);
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 6px;
+  margin-bottom: 18px;
+  text-align: center;
+}
+.css-5qklr4 {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+.css-1k9uakg {
+  display: block;
+  position: relative;
+  text-align: start;
+  width: 312px;
+}
+.css-17n4kgf {
+  color: rgb(252, 252, 252);
+  font-size: 16px;
+}
+.css-5qklr4 > :not(style) + :not(style) {
+  margin: 38px 0px 0px;
+}
+.css-5qklr4 > :not(style) + :not(style) {
+    margin: 38px 0px 0px;
+}
+.css-1bp4bsu {
+  position: relative;
+  width: 312px;
+}
+.css-osjlk {
+  color: rgb(252, 252, 252);
+  font-size: 16px;
+  font-weight: 300;
+  margin-top: 0px;
+  margin-bottom: 18px;
+}
+.css-29wi6k {
+  position: relative;
+  width: 312px;
+}
+.css-mxr2pk {
+  height: 46px;
+  border: 1px solid rgb(159, 159, 159);
+  border-radius: 6px;
+  text-align: center;
+  color: rgb(230, 230, 230);
+  font-size: 16px;
+  font-weight: 300;
+  width: 312px;
+  background: rgb(30, 30, 30);
+  cursor: pointer;
+}
+.css-cpdvyf {
+  position: relative;
+  margin-top: -10px;
+}
+.css-62v0aq {
+  height: 46px;
+  width: 100%;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+  position: absolute;
+  top: 0px;
+  padding-right: 28px;
+  cursor: pointer;
+  z-index: 1;
+}
+.css-26tdca {
+  cursor: pointer;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  padding-left: 20px;
+  font-weight: 500;
+  position: relative;
+  height: 46px;
+  width: 312px;
+  padding-right: 32px;
+  border: 1px solid rgb(159, 159, 159);
+  border-radius: 6px;
+  z-index: 1;
+  background-color: rgb(30, 30, 30);
+}
+.css-10wwlpq {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 300;
+  color: rgb(230, 230, 230);
+  width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.css-13ggkmh {
+  display: inline-block;
+  position: absolute;
+  margin-top: 9px;
+  z-index: 2;
+  background: rgb(30, 30, 30);
+  border-radius: 6px;
+  border: 1px solid rgb(62, 62, 62);
+  max-height: 500px;
+  overflow: hidden auto;
+  width: 100%;
+}
+.css-1b9fiqz {
+  border-radius: 6px;
+  text-align: center;
+  color: rgb(230, 230, 230);
+  cursor: pointer;
+  height: 36px;
+  margin: 0px auto;
+  border: none;
+  font-size: 16px;
+  font-weight: 300;
+  width: 312px;
+  background: rgba(236, 97, 38, 0.3) !important;
+}
+.css-1b9fiqz {
+  border-radius: 6px;
+  text-align: center;
+  color: rgb(230, 230, 230);
+  cursor: pointer;
+  height: 36px;
+  margin: 0px auto;
+  border: none;
+  font-size: 16px;
+  font-weight: 300;
+  width: 312px;
+  background: rgba(236, 97, 38, 0.3) !important;
+}
+.css-zp7i86 {
+  color: rgb(252, 252, 252);
+  margin-top: 38px;
+  margin-bottom: 18px;
+  font-size: 16px;
+}
+.css-3ut2hf {
+  position: relative;
+  width: 312px;
+}
+.css-qc8k2 {
+  height: 46px;
+  background: rgb(30, 30, 30);
+  border: 1px solid rgb(159, 159, 159);
+  border-radius: 6px;
+  text-align: center;
+  font-size: 16px;
+  color: rgb(230, 230, 230);
+  cursor: text;
+  font-weight: 300;
+  width: 312px;
+}
