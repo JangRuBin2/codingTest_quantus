@@ -43,7 +43,17 @@ const Main: React.FC<MainProps> = ({ children }) => {
   const [strategyName, setStrategyName] = useState<string>('전략 이름을 입력해주세요.');
   // 전략 자산 '접기, 펼치기'
   const [foldingState, setFoldingState] = useState(true);
-
+  const resetAllInputData = () => {
+    setAssetDiv([]);
+    setAllocationInputValue('전략배분 (정적자산배분)');
+    setAssetTypeInputValue('한국 자산군');
+    setAssetClassInputValue('');
+    setAssetProportionInputValue(0);
+    setrebalancingInputValue('주기 리밸런싱을 선택해주세요.')
+    setInitialInvestmentValue('');
+    setRebalancingValue('');
+    setStrategyName('전략 이름을 입력해주세요.');
+  }
   const showModalValues = ( modalType: 'allocation' | 'rebalancing' | 'addAsset' | 'assetClass' | 'assetType' ) => {
     // 입력 받은 문자에 맞는 모달을 활성화하게 함
     console.log('모달 활성화 버튼 눌림');
@@ -261,7 +271,7 @@ const Main: React.FC<MainProps> = ({ children }) => {
                 <div className='icon'>
                   <img src="https://www.quantus.kr/static/media/reset.c583168b8c7b6e9b10892a3c70674e59.svg" alt="reset" />
                 </div>
-                <div>설정 값 초기화</div>
+                <div onClick={resetAllInputData}>설정 값 초기화</div>
               </div>
             </div>
           </div>
