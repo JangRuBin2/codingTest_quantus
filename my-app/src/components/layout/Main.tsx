@@ -54,6 +54,9 @@ const Main: React.FC<MainProps> = ({ children }) => {
     setRebalancingValue('');
     setStrategyName('전략 이름을 입력해주세요.');
   }
+  useEffect(()=> {
+    console.log('모달 리 랜더링 되나?');
+  },[assetTypeModalState])
   const showModalValues = ( modalType: 'allocation' | 'rebalancing' | 'addAsset' | 'assetClass' | 'assetType' ) => {
     // 입력 받은 문자에 맞는 모달을 활성화하게 함
     console.log('모달 활성화 버튼 눌림');
@@ -424,7 +427,21 @@ const Main: React.FC<MainProps> = ({ children }) => {
               </div>
               <div style={{marginTop : '80px', fontSize : '18px', fontWeight : '500'}}>마켓 타이밍 설정</div>
               <div className='css-1lytgsp'>
-                
+                <div className='css-ecd9gd'>
+                  <div className='css-18ru846'>
+                    <div className='css-1j8i7mp' style={{marginBottom :'18px'}}>
+                      <div className='css-192m3r6'>
+                        <img src="https://quantus.kr/static/media/checkBoxDefault.c07524e01b9d604f81a0269a5fd614f0.svg" className='css-1xsl7pa' style={{cursor : 'default'}} />
+                        <div>매크로 마켓 타이밍</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className='css-o74kr2' style={{top : '6px', left : '-61px'}}>
+                  <i className='default unedfined css-1lk0sc2 '></i>
+                </div>
+                <div className='css-wfteg6'></div>
+                <div className='css-o74kr2' style={{top : '6px', right : '670px'}}></div>
               </div>
               <div className='css-y4fv1w'></div>
               <div style={{marginTop : '15px'}}></div>

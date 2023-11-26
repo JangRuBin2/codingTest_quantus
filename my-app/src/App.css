@@ -717,6 +717,41 @@ a {
 .css-1z0pfhy {
   width: 800px;
 }
+.css-192m3r6 {
+  height: 24px;
+  display: flex;
+  font-size: 16px;
+  -webkit-box-align: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.css-o74kr2 .default {
+  top: 0px;
+  left: 0px;
+}
+.css-1j8i7mp {
+  min-width: 140px;
+  margin-right: 20px;
+  margin-bottom: 32px;
+}
+.css-18ru846 {
+  display: flex;
+  flex-wrap: wrap;
+  width: 830px;
+}
+.css-o74kr2 {
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+}
+.css-wfteg6 {
+  margin-top: 0px;
+}
+.css-ecd9gd {
+  width: 221px;
+  margin-top: 0px;
+}
 .css-yyszln {
   box-sizing: border-box;
   display: flex;
@@ -950,4 +985,11 @@ a {
   cursor: text;
   font-weight: 300;
   width: 312px;
+}
+.css-1lk0sc2 {
+  background: url('https://quantus.kr/static/media/tooltip.1954d30e191d9eeb4a286fd9086f9e45.svg') 0px 0px no-repeat;
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
 }
