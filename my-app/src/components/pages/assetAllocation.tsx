@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 const AssetAllocationPage = () : JSX.Element => {
+
   // 로딩 화면을 처리하기 위한 state
   const [isLoading, setLoading] = useState(false);
   // 자산 추가에 사용하기 위한 state
@@ -24,6 +25,7 @@ const AssetAllocationPage = () : JSX.Element => {
   const [assetTypeInputValue, setAssetTypeInputValue] = useState<string>('한국 자산군');
   const [assetTypeModalState, setAssetTypeModalState] = useState(false);
   const saveAlleInputData = ()=> {
+    localStorage.setItem('strategyName', JSON.stringify(strategyName));
     localStorage.setItem('allocationInputValue', JSON.stringify(allocationInputValue));
     localStorage.setItem('assetTypeInputValue', JSON.stringify(assetTypeInputValue));
     localStorage.setItem('assetClassInputValue', JSON.stringify(assetClassInputValue));
@@ -31,6 +33,7 @@ const AssetAllocationPage = () : JSX.Element => {
     localStorage.setItem('rebalancingInputValue', JSON.stringify(rebalancingInputValue));
     localStorage.setItem('initialInvestmentValue', JSON.stringify(initialInvestmentValue));
   }
+    
   // 자산 추가 부분 '자산군' input 태그 value State
   const [assetClassInputValue, setAssetClassInputValue] = useState<string>('');
   const [assetClassModalState, setAssetClassModalState] = useState<boolean>(false);
@@ -278,6 +281,7 @@ const AssetAllocationPage = () : JSX.Element => {
       console.log(assetTypeInputValue, '에셋 타입 밸류');
     }
   };
+
 // 입력된 값이 타입과 일치하는지 확인해주는 함수
   const inputValueSensor = (event: React.ChangeEvent<HTMLInputElement>, output : 'Investment' | 'rebalancing' | 'proportion') => {
     // 입력된 값이 숫자인지 확인
@@ -293,7 +297,34 @@ const AssetAllocationPage = () : JSX.Element => {
       }
     }
   };
-  // 전략 이름 입력부분 변경 함수
+  // 최초에 로컬에 저장된 데이터 확인후 있으면 그곳에 할당
+  useEffect(()=> {
+    // console.log('로컬에 데이터 있다.');
+    const strategyStrData = localStorage.getItem('strategyName');
+    console.log(strategyStrData);
+    const allocationInputStrData = localStorage.getItem('allocationInputValue')?.replace(/\/+|'+'/g, "/");
+    const assetTypeInputStrData = localStorage.getItem('assetTypeInputValue')?.replace(/\/+|'+'/g, "/");
+    const assetClassInputStrData = localStorage.getItem('assetClassInputValue')?.replace(/\/+|'+'/g, "/");
+    const assetProportionInputStrData = localStorage.getItem('assetProportionInputValue')?.replace(/\/+|'+'/g, "/");
+    console.log(typeof(assetProportionInputStrData),'texs');
+    const rebalancingInputStrData = localStorage.getItem('rebalancingInputValue')?.replace(/\/+|'+'/g, "/");
+    const initialInvestmentStrData = localStorage.getItem('initialInvestmentValue')?.replace(/\/+|'+'/g, "/");
+    if (allocationInputStrData) {
+      setAllocationInputValue(allocationInputStrData);
+    } else if (strategyStrData) {
+      setStrategyName(strategyStrData)
+    } else if (assetTypeInputStrData) {
+      setAssetTypeInputValue(assetTypeInputStrData)
+    } else if (assetClassInputStrData) {
+      setAssetClassInputValue(assetClassInputStrData)
+    } else if (assetProportionInputStrData) {
+      setAssetProportionInputValue(assetProportionInputStrData)
+    } else if (rebalancingInputStrData) {
+      setrebalancingInputValue(rebalancingInputStrData)
+    } else if (initialInvestmentStrData) {
+      setInitialInvestmentValue(initialInvestmentStrData)
+    }
+  }, []);
 
   // 전략 이름 입력부분input태그 외의 영역 클릭했을 때 이벤트
   const handleClickOutside = (event: MouseEvent) => {
