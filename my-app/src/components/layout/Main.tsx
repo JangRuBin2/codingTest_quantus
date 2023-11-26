@@ -150,7 +150,7 @@ const Main: React.FC<MainProps> = ({ children }) => {
                       </div>
                     </div>
                     <div onClick={()=> {showModalValues('assetClass');
-                  AssetSimulationInvestment(assetTypeInputValue);}} id={`자산 ${prevDivs.length+1}.option`} className={assetClassModalClassNameState ? 'css-n7bws2' :'css-62v0aq'}>
+                  }} id={`자산 ${prevDivs.length+1}.option`} className={assetClassModalClassNameState ? 'css-n7bws2' :'css-62v0aq'}>
                       <img src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg" alt="arrowDown" />
                     </div>
                   </div>
