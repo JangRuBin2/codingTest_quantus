@@ -17,6 +17,7 @@ function App() {
       <div className='css-10qbdmk'>
       <Header />
       <Routes>
+      <Route path="/" element={<Main><AssetAllocation /></Main>} />
         <Route path="/backtest" element={<Main><BackTest /></Main>} />
         <Route path="/alloc" element={<Main><AssetAllocation /></Main>} />
         <Route path="/port" element={<Main><PortfolioExtraction /></Main>} />
