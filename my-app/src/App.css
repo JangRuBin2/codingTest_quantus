@@ -802,6 +802,10 @@ a {
 .css-wfteg6 {
   margin-top: 0px;
 }
+.css-yyszln > .MuiGrid-item {
+  padding-left: 64px;
+}
+
 .css-ecd9gd {
   width: 221px;
   margin-top: 0px;
@@ -813,6 +817,9 @@ a {
   margin-top: -38px;
   width: calc(100% + 64px);
   margin-left: -64px;
+}
+.css-yyszln > .MuiGrid-item {
+  padding-top: 38px;
 }
 .gridChildren {
   padding-left : 64px;

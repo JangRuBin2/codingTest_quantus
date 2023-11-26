@@ -60,18 +60,19 @@ const Main: React.FC<MainProps> = ({ children }) => {
     setRebalancingValue('');
     setStrategyName('전략 이름을 입력해주세요.');
   }
-  const AssetSimulationInvestment = (assetType : string) => {
+  const AssetSimulationInvestment = (assetType : any) => {
     switch (assetType) {
       case '한국 자산군':
-        console.log(korean_AssetClass)
+        console.log(korean_AssetClass);
         return korean_AssetClass;
-
       case '미국 자산군':
+        console.log(USA_AssetClass);
         return USA_AssetClass
       case '전략':
+        console.log(strategy_AssetClass);
         return strategy_AssetClass
       default:
-        return [];
+        return korean_AssetClass;
     }
   };
   const showModalValues = ( modalType: 'allocation' | 'rebalancing' | 'addAsset' | 'assetClass' | 'assetType' ) => {
@@ -165,6 +166,9 @@ const Main: React.FC<MainProps> = ({ children }) => {
                     <div className='css-rubi'>
                       <div style={{height : '0px', width : '100%'}}>
                         {/* 자산군 리스트 */}
+                        {AssetSimulationInvestment(assetTypeInputValue).map((item, index) => (
+    <div key={index}>{item}</div>
+  ))}
                       </div>
                     </div>
                     </div>}
@@ -199,6 +203,7 @@ const Main: React.FC<MainProps> = ({ children }) => {
       setAssetClassInputValue(item);
     } else if (modalType === 'assetType') {
       setAssetTypeInputValue(item);
+      console.log(assetTypeInputValue, '에셋 타입 밸류');
     }
   };
 // 입력된 값이 타입과 일치하는지 확인해주는 함수
@@ -436,21 +441,30 @@ const Main: React.FC<MainProps> = ({ children }) => {
                     </div>
                   </div>}
                   {/* 자산 추가 버튼 -> 추가 요소 생기기 전 */}
-                  {!foldingState && <div className='MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-185r4pm'>
-                      {/* <div className='MuiBox-root css-79elbk'> 수정 확인할 부분
-                        <img src="https://quantus.kr/static/media/assetAddIcon.5c650e6cec8030c8302335ae8189dc48.svg" alt="addIcon"  style={{marginLeft : "157px", marginTop : "73px", width : '55px'}}/>
-                      </div> */}
-                  </div>}
                   </div>
                   <div className='css-0'></div>
                   <div className='MuiBox-root css-1z0pfhy'>
                     {/* grid 템플릿 */}
-                    {assetClassState && <div className='MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-8 css-yyszln'>
+                    {assetClassState && <><div className='MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-8 css-yyszln'>
                     {/* div이 추가될 곳 */}
                     {assetDiv.map((div) => (
           <>{div}</>
         ))}
-                    </div>}
+        {/* 추가 버튼 */}
+        <div className='MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-1s50f5r' onClick={() => {
+        addAssetDivs();
+                  console.log('클릭 됨?', assetClassState) }
+                }>
+                      <div className='MuiPaper-root MuiGrid-rounded MuiPaper-elevation1 css-yaj938'>
+                        <div className='MuiBor-root css-79elbk'>
+                          <img src="https://quantus.kr/static/media/assetAddIcon.5c650e6cec8030c8302335ae8189dc48.svg" alt="addIcon" style={{width : '55px'}} />
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                    
+                    </>
+                    }
                     
                   </div>
                   </>
@@ -461,7 +475,7 @@ const Main: React.FC<MainProps> = ({ children }) => {
                   <div className='css-14slbl7' onClick={() => showModalValues('addAsset')}>{foldingState ? '펼치기' : '접기'}<img src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg" alt="arrowIcon" className={foldingState ? 'css-6d3iyv' : 'css-1gn5vo1'}/></div>
                 </div>)}
                   {/* 폴더는 열려있지만 자산 추가부분이 활성화 되지 않았을 때 보여줄 컴포넌트 */}
-                  {!foldingState && (
+                  {!foldingState && !assetClassState && (
                   <div className={assetClassState ? 'MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-yaj938' : 'MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-185r4pm'} onClick={() => {setAssetClassState(true);
                   console.log('클릭 됨?', assetClassState) }
                 }>
