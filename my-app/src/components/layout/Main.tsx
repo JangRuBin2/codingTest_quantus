@@ -43,6 +43,12 @@ const Main: React.FC<MainProps> = ({ children }) => {
   const [strategyName, setStrategyName] = useState<string>('전략 이름을 입력해주세요.');
   // 전략 자산 '접기, 펼치기'
   const [foldingState, setFoldingState] = useState(true);
+  const allocationModalValues = ['전략 배분 (정적 자산배분)', '듀얼 모멘텀', 'VAA', 'DAA', 'BAA 공격형', 'BAA 중도형', 'LAA', 'HAA', '변형듀얼모멘텀', '가속듀얼모멘텀'];
+  const rebalancingModalValues = ['월별', '분기별', '반기별', '매년', '시즈널리티', '하지 않음(Buy-and-Hold)'];
+  const assetTypeModalValues = ['한국 자산군', '미국 자산군', '전략', '한국 ETF', '미국 ETF', '한국 주식', '미국 주식'];
+  const korean_AssetClass = ['코스닥 (코스닥)', '코스닥 인버스 (코스닥 인버스)', '코스피 (코스피)', '코스피 인버스 (코스피 인버스)', '한국10년국채 (한국10년국채)'];
+  const USA_AssetClass = ['S&P500', 'S&P500인버스', '금', '나스닥', '나스닥 인버스', '미국10년국채', '미국2년국채', '미국30년국채', '미국단기채', '원자재', '전세계 주식'];
+  const strategy_AssetClass = ['신마법 공식', '무작정따라하기_정상가치(소형주)', '무작정따라하기_성장가치(소형주, 미국)', '강환국_울트라전략', '켄피셔_대형주전략(미국)', '소형주 10팩터(성장가치+시총+종가)', '한,미 롱숏 영구포트폴리오', '퀀터스 베타 중립 전략', '소형주70-인버스30 전략(백테스트)', '소형주70-인버스30 전략(실전투자)'];
   const resetAllInputData = () => {
     setAssetDiv([]);
     setAllocationInputValue('전략배분 (정적자산배분)');
@@ -54,9 +60,20 @@ const Main: React.FC<MainProps> = ({ children }) => {
     setRebalancingValue('');
     setStrategyName('전략 이름을 입력해주세요.');
   }
-  useEffect(()=> {
-    console.log('모달 리 랜더링 되나?');
-  },[assetTypeModalState])
+  const AssetSimulationInvestment = (assetType : string) => {
+    switch (assetType) {
+      case '한국 자산군':
+        console.log(korean_AssetClass)
+        return korean_AssetClass;
+
+      case '미국 자산군':
+        return USA_AssetClass
+      case '전략':
+        return strategy_AssetClass
+      default:
+        return [];
+    }
+  };
   const showModalValues = ( modalType: 'allocation' | 'rebalancing' | 'addAsset' | 'assetClass' | 'assetType' ) => {
     // 입력 받은 문자에 맞는 모달을 활성화하게 함
     console.log('모달 활성화 버튼 눌림');
@@ -89,7 +106,7 @@ const Main: React.FC<MainProps> = ({ children }) => {
                 <img src="https://quantus.kr/static/media/close.07f49c968bc3e6f2992869fcb645f8db.svg
 " alt="closeIcon" style={{cursor : 'pointer', width : '13px', filter : 'invert(47%) sepia(4%) saturate(8%) hue-rotate(329deg) brightness(100%) contrast(89%)', }} />
               </div>
-              <div className='css-10kte4f'>{prevDivs.length + 1}</div>
+              <div className='css-10kte4f'>자산 {prevDivs.length + 1}</div>
               <div className='MuiStack-root css-5qklr4'>
                 <div className='css-1k9uakg'>
                   <div>
@@ -100,7 +117,7 @@ const Main: React.FC<MainProps> = ({ children }) => {
                   </div>
                   <div className='open_option css-ppidyn'>
                     <div>
-                      <img className={assetTypeInputValue ? 'css-1evlre2' : 'css-egzwes' } src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg
+                      <img className={assetTypeModalState ? 'css-1evlre2' : 'css-egzwes' } src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg
 " alt="arrowDown" />
                     </div>
                   </div>
@@ -127,21 +144,37 @@ const Main: React.FC<MainProps> = ({ children }) => {
                 <div className='css-1bp4bsu' style={{marginTop : '28px'}}>
                   <div className='' style={{position: 'relative'}}>
                     <div className='css-cpdvyf'>
-                      <div id={`자산 ${prevDivs.length+1}.option`} className='css-26tdca'>
+                      <div id={`자산 ${prevDivs.length+1}.option`} className={assetClassModalClassNameState ? 'css-uhw29b' : 'css-26tdca'}>
                         <div className='css-10wwlpq'></div>
                       </div>
                     </div>
-                    <div id={`자산 ${prevDivs.length+1}.option`} className='css-62v0aq'>
+                    <div onClick={()=> {showModalValues('assetClass');
+                  AssetSimulationInvestment(assetTypeInputValue);}} id={`자산 ${prevDivs.length+1}.option`} className={assetClassModalClassNameState ? 'css-n7bws2' :'css-62v0aq'}>
                       <img src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg" alt="arrowDown" />
                     </div>
                   </div>
+                  {assetClassModalState && <div style={{zIndex : '3', position : 'absolute', top: '35px', width : '312px'}}>
+                    <div>
+                      <div className='css-3ut2hf'>
+                        <input type="text" placeholder='검색어를 입력하세요.' className='css-1n1ciy6' autoComplete='off' />
+                      </div>
+                    </div>
+                    <div className='css-1l59oyi'>
+                      <img src="https://quantus.kr/static/media/search.9478e73e81517344a63859a557b85c6e.svg" alt="search" />
+                    </div>
+                    <div className='css-rubi'>
+                      <div style={{height : '0px', width : '100%'}}>
+                        {/* 자산군 리스트 */}
+                      </div>
+                    </div>
+                    </div>}
                 </div>
               </div>
               {/* 비중 */}
               <div>
                 <div className='css-zp7i86'>비중</div>
                 <div id={`자산 ${prevDivs.length+1}.value`} className='css-3ut2hf'>
-                  <input type="text" id={`자산 ${prevDivs.length+1}.value`} className='css-qc8k2' autoComplete='off'value={assetProportionInputValue}/>
+                  <input onChange={(e) => inputValueSensor(e, 'proportion')} type="text" id={`자산 ${prevDivs.length+1}.value`} className='css-qc8k2' autoComplete='off'value={assetProportionInputValue}/>
                   <p className='css-1226vig'>%</p>
                 </div>
                 <p className='css-l1mo21'>0 ~ 100 까지 입력할 수 있습니다.</p>
@@ -179,7 +212,7 @@ const Main: React.FC<MainProps> = ({ children }) => {
       } else if (output === 'rebalancing') {
         setRebalancingValue(numericValue);
       } else if (output === 'proportion') {
-
+        setAssetProportionInputValue(numericValue);
       }
     }
   };
@@ -217,9 +250,7 @@ const Main: React.FC<MainProps> = ({ children }) => {
       setAssetClassModalClassNameState(index);
     }
   };
-  const allocationModalValues = ['전략 배분 (정적 자산배분)', '듀얼 모멘텀', 'VAA', 'DAA', 'BAA 공격형', 'BAA 중도형', 'LAA', 'HAA', '변형듀얼모멘텀', '가속듀얼모멘텀'];
-  const rebalancingModalValues = ['월별', '분기별', '반기별', '매년', '시즈널리티', '하지 않음(Buy-and-Hold)'];
-  const assetTypeModalValues = ['한국 자산군', '미국 자산군', '전략', '한국 ETF', '미국 ETF', '한국 주식', '미국 주식'];
+  
   
   // 하단으로 이동 이벤트 함수
   const scrollToBottom = () => {
@@ -299,7 +330,7 @@ const Main: React.FC<MainProps> = ({ children }) => {
                   {/* 모달창 토글 버튼 */}
                   <div id='StaticAlog' className='open_option css-ppidyn' onClick={() =>showModalValues('allocation')}>
                     <div id='StaticAlog'>
-                      <img id='StaticAlog' src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg" alt="arrowDown" className='css-1evlre2' />
+                      <img id='StaticAlog' src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg" alt="arrowDown" className={assetTypeInputValue ? 'css-1evlre2' : 'css-egzwes' }/>
                     </div>
                   </div>
                 
@@ -388,24 +419,39 @@ const Main: React.FC<MainProps> = ({ children }) => {
                   (<><div className='css-zay56g'>
                     <div className='css-2fefu9' style={foldingState ?
                     // 펼쳐져 있을 때
-                    ({display : 'flex', alignItems :'center', justifyContent : 'space-between', marginBottom : '10px'}):
+                    ({ display : 'flex', alignItems : 'center', justifyContent : 'space-between'})
                     // 접혀 있을 때
-                    ({ display : 'flex', alignItems : 'center', justifyContent : 'space-between'})}>
+                    :({display : 'flex', alignItems :'center', justifyContent : 'space-between', marginBottom : '10px'})
+                    }>
                     <p>자산군 추가</p>
                     <div className='css-14slbl7' onClick={() => showModalValues('addAsset')}>{foldingState ? '펼치기' : '접기'}<img src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg" alt="arrowIcon" className={foldingState ? 'css-1gn5vo1': 'css-6d3iyv'}/>
                     </div>
                   </div>
-                  <div className='css-rtde4j'></div>
+                  {/* 자산 추가되있을 때 생길 div foldingState가 true일 때 나옴*/}
+                  {foldingState && <div className='css-rtde4j'>
+                    div만큼 생김
+                    <div className='css-3k5dqj'>
+                      <p className='css-zrc6se'>자산 01</p>
+                      <div className='css-j63mwv'>예시 ) 무작정 따라하기</div>
+                    </div>
+                  </div>}
+                  {/* 자산 추가 버튼 -> 추가 요소 생기기 전 */}
+                  {!foldingState && <div className='MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-185r4pm'>
+                      {/* <div className='MuiBox-root css-79elbk'> 수정 확인할 부분
+                        <img src="https://quantus.kr/static/media/assetAddIcon.5c650e6cec8030c8302335ae8189dc48.svg" alt="addIcon"  style={{marginLeft : "157px", marginTop : "73px", width : '55px'}}/>
+                      </div> */}
+                  </div>}
                   </div>
                   <div className='css-0'></div>
                   <div className='MuiBox-root css-1z0pfhy'>
                     {/* grid 템플릿 */}
-                    <div className='MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-8 css-yyszln'>
+                    {assetClassState && <div className='MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-8 css-yyszln'>
                     {/* div이 추가될 곳 */}
                     {assetDiv.map((div) => (
           <>{div}</>
         ))}
-                    </div>
+                    </div>}
+                    
                   </div>
                   </>
                   ) :
@@ -414,7 +460,7 @@ const Main: React.FC<MainProps> = ({ children }) => {
                   <p>자산군 추가</p>
                   <div className='css-14slbl7' onClick={() => showModalValues('addAsset')}>{foldingState ? '펼치기' : '접기'}<img src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg" alt="arrowIcon" className={foldingState ? 'css-6d3iyv' : 'css-1gn5vo1'}/></div>
                 </div>)}
-                  {/* 자산 추가부분이 닫혀있을 때 보여줄 컴포넌트 */}
+                  {/* 폴더는 열려있지만 자산 추가부분이 활성화 되지 않았을 때 보여줄 컴포넌트 */}
                   {!foldingState && (
                   <div className={assetClassState ? 'MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-yaj938' : 'MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-185r4pm'} onClick={() => {setAssetClassState(true);
                   console.log('클릭 됨?', assetClassState) }

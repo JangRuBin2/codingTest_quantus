@@ -706,6 +706,60 @@ a {
 .css-79elbk {
   position: relative;
 }
+.css-j63mwv {
+  padding: 8px 16px;
+  background-color: rgb(62, 62, 62);
+  font-size: 16px;
+  font-weight: 300;
+  border-radius: 19px;
+}
+.css-n7bws2 {
+  height: 46px;
+  width: 100%;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+  position: absolute;
+  top: 0px;
+  padding-right: 28px;
+  cursor: pointer;
+  z-index: 1;
+}
+.css-rubi {
+  position: relative;
+  height: 482px;
+  width: 100%;
+  will-change: transform;
+  direction: ltr;
+  overflow-x: hidden;
+  border: 1px solid rgb(159, 159, 159);
+  border-radius: 0px 0px 6px 6px;
+  background-color: rgb(30, 30, 30);
+}
+.css-1l59oyi {
+  height: 60px;
+  margin-top: 48px;
+  padding-left: 18px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: start;
+  justify-content: flex-start;
+  position: absolute;
+  top: -47px;
+  z-index: 4;
+}
+.css-zrc6se {
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: 500;
+}
+.css-3k5dqj {
+  margin-right: 36px;
+  min-width: 40px;
+}
 .css-zay56g {
   display: flex;
   flex-flow: column wrap;
@@ -969,6 +1023,23 @@ a {
   margin-top: 38px;
   margin-bottom: 18px;
   font-size: 16px;
+}
+.css-1n1ciy6 {
+  background: rgb(30, 30, 30);
+  border-top: 1px solid rgb(159, 159, 159);
+  border-right: 1px solid rgb(159, 159, 159);
+  border-left: 1px solid rgb(159, 159, 159);
+  border-image: initial;
+  font-size: 16px;
+  color: rgb(230, 230, 230);
+  cursor: text;
+  height: 60px;
+  width: 312px;
+  padding-left: 48px;
+  border-radius: 0px;
+  border-bottom: none;
+  text-align: start;
+  font-weight: 300;
 }
 .css-3ut2hf {
   position: relative;
