@@ -5,6 +5,8 @@ interface MainProps {
 }
 
 const Main: React.FC<MainProps> = ({ children }) => {
+  // 로딩 화면을 처리하기 위한 state
+  const [isLoading, setLoading] = useState(false);
   // 대규모 데이터를 처리하기 위한 state
   const [currentScroll, setCurrentScroll] = useState(1);
   // 자산 추가에 사용하기 위한 state
@@ -87,6 +89,12 @@ const Main: React.FC<MainProps> = ({ children }) => {
     // 현재 로드된 아이템 수에 10을 더하여 업데이트
     setLoadedCount((prevCount) => prevCount + 10);
   };
+  const backTest = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 6000);
+  }
   useEffect(() => {
     // AssetSimulationInvestment 함수를 통해 데이터 불러오기
     const newData = AssetSimulationInvestment(assetTypeInputValue);
@@ -564,7 +572,24 @@ const Main: React.FC<MainProps> = ({ children }) => {
               <div style={{marginTop : '15px'}}></div>
               <div className='css-1qorevd'>기간 설정</div>
               <div className='css-mjhumy'></div>
-              <div className='css-1a5xcom'></div>
+              {/* 포트 추출 */}
+              <div className='css-1a5xcom'>
+                <div className='css-cssveg'></div>
+                {/* 백테스트 */}
+                <div className='second_btn_wrapper'>
+  <div className='css-cssveg'>
+    <div onClick={backTest} className='css-10p2e9r'>
+      {isLoading ? (
+        <div className='loading'>Loading&#8230;</div>
+      ) : (
+        <div className='css-1dflnl9'>
+          <div className='css-1qm89cl'>백테스트</div>
+        </div>
+      )}
+    </div>
+  </div>
+</div>
+              </div>
             </div>
           </div>
         </div>
