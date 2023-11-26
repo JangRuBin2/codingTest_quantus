@@ -97,15 +97,20 @@ const Main: React.FC<MainProps> = ({ children }) => {
                   </div>
                   <div className='open_option css-ppidyn'>
                     <div>
-                      <img src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg
+                      <img className={assetTypeInputValue ? 'css-1evlre2' : 'css-egzwes' } src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg
 " alt="arrowDown" />
                     </div>
                   </div>
                   {assetTypeModalState && (<div className='css-13ggkmh'>
                   {assetTypeModalValues.map((item, index) => (
-                    <div key={index} style={{zIndex : '5'}} >
+                    <div key={index} onClick={() => {
+                       // 모달 활성화
+                      showModalValues('assetType');
+                       // inpu value 변경
+                      changeInputValue('assetType', item);
+                    }} >
                       <div id='staticRebalancing' className='css-29wi6k'>
-                        <input id='staticRebalancing' className={assetTypeModalClassNameState === index ? 'css-1b9fiqz' : 'css-1uubgwg'} type="text" readOnly autoComplete='off' value={item} onClick={() => {
+                        <input id='staticRebalancing' className={assetTypeModalClassNameState === index ? 'css-1b9fiqz' : 'css-ip1zrc'} type="text" readOnly autoComplete='off' value={item} onClick={() => {
                           // className 변경 함수
                           changeModalClassName('assetType', index);
                           // input value 변경 함수
@@ -134,7 +139,7 @@ const Main: React.FC<MainProps> = ({ children }) => {
                 <div className='css-zp7i86'>비중</div>
                 <div id={`자산 ${prevDivs.length+1}.value`} className='css-3ut2hf'>
                   <input type="text" id={`자산 ${prevDivs.length+1}.value`} className='css-qc8k2' autoComplete='off'value={assetProportionInputValue}/>
-                  <p  >%</p>
+                  <p className='css-1226vig'>%</p>
                 </div>
                 <p className='css-l1mo21'>0 ~ 100 까지 입력할 수 있습니다.</p>
               </div>
@@ -251,8 +256,8 @@ const Main: React.FC<MainProps> = ({ children }) => {
                 </div>
                 {/* 저장 버튼 */}
                 <div className='css-10p2e9r'>
-                  <div className='css-1mvfl8k'>
-                    <div className='css-reou0t'>저장</div>
+                  <div className={strategyName !== '전략 이름을 입력해주세요.' ? 'css-efe8wa' : 'css-1mvfl8k' }>
+                    <div className={strategyName !== '전략 이름을 입력해주세요.' ? 'css-1jbl1jl' : 'css-reou0t'}>저장</div>
                   </div>
                 </div>
                 {/* 하단으로 이동 버튼 */}
@@ -383,7 +388,7 @@ const Main: React.FC<MainProps> = ({ children }) => {
                     ({display : 'flex', alignItems :'center', justifyContent : 'space-between', marginBottom : '10px'}):
                     // 접혀 있을 때
                     ({ display : 'flex', alignItems : 'center', justifyContent : 'space-between'})}>
-                    <p>자산군 추가 false</p>
+                    <p>자산군 추가</p>
                     <div className='css-14slbl7' onClick={() => showModalValues('addAsset')}>{foldingState ? '펼치기' : '접기'}<img src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg" alt="arrowIcon" className={foldingState ? 'css-1gn5vo1': 'css-6d3iyv'}/>
                     </div>
                   </div>
@@ -392,10 +397,10 @@ const Main: React.FC<MainProps> = ({ children }) => {
                   <div className='css-0'></div>
                   <div className='MuiBox-root css-1z0pfhy'>
                     {/* grid 템플릿 */}
-                    <div className='css-yyszln'>
+                    <div className='MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-8 css-yyszln'>
                     {/* div이 추가될 곳 */}
-                    {assetDiv.map((div, index) => (
-          <div key={index}>{div}</div>
+                    {assetDiv.map((div) => (
+          <>{div}</>
         ))}
                     </div>
                   </div>
@@ -403,7 +408,7 @@ const Main: React.FC<MainProps> = ({ children }) => {
                   ) :
                   // false일 때 보여줄 내용
                   (<div className='css-2fefu9' style={foldingState ? ({ display : 'flex', alignItems : 'center', justifyContent : 'space-between'}) : ({display : 'flex', alignItems :'center', justifyContent : 'space-between', marginBottom : '10px'})}>
-                  <p>자산군 추가 false</p>
+                  <p>자산군 추가</p>
                   <div className='css-14slbl7' onClick={() => showModalValues('addAsset')}>{foldingState ? '펼치기' : '접기'}<img src="https://quantus.kr/static/media/group.e794b5854ffcc5cc4efdbba4e5477147.svg" alt="arrowIcon" className={foldingState ? 'css-6d3iyv' : 'css-1gn5vo1'}/></div>
                 </div>)}
                   {/* 자산 추가부분이 닫혀있을 때 보여줄 컴포넌트 */}
@@ -412,13 +417,15 @@ const Main: React.FC<MainProps> = ({ children }) => {
                   console.log('클릭 됨?', assetClassState) }
                 }>
                     <div className='MuiBox-root css-79elbk' onClick={addAssetDivs}>
-                      <img src="https://quantus.kr/static/media/assetAddIcon.5c650e6cec8030c8302335ae8189dc48.svg" alt="addIcon" style={{marginLeft :'157px', marginTop : '73px', width : '55px'}}/>
+                      <img src="https://quantus.kr/static/media/assetAddIcon.5c650e6cec8030c8302335ae8189dc48.svg" alt="addIcon" style={assetTypeModalState ? ({width : '55px'}) : ({marginLeft :'157px', marginTop : '73px', width : '55px'})}/>
                     </div>
                   </div>)}
                 </div>
               </div>
               <div style={{marginTop : '80px', fontSize : '18px', fontWeight : '500'}}>마켓 타이밍 설정</div>
-              <div className='css-1lytgsp'></div>
+              <div className='css-1lytgsp'>
+                
+              </div>
               <div className='css-y4fv1w'></div>
               <div style={{marginTop : '15px'}}></div>
               <div className='css-1qorevd'>기간 설정</div>

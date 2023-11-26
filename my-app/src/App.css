@@ -299,6 +299,12 @@ a {
   font-weight: bold;
   color: rgb(252, 252, 252);
 }
+.css-1jbl1jl {
+  text-align: center;
+  font-size: 16px;
+  color: rgb(252, 252, 252);
+  font-weight: 300;
+}
 /* 전략 저장 버튼 */
 .css-1mvfl8k {
   display: inline-flex;
@@ -502,6 +508,23 @@ a {
   cursor: pointer;
   color: rgb(252, 252, 252);
   text-shadow: none;
+}
+.css-efe8wa {
+  display: inline-flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 6px;
+  font-weight: 500;
+  position: relative;
+  background-color: rgb(14, 14, 14);
+  width: 82px;
+  height: 42px;
+  border: 1px solid rgb(236, 97, 38);
+  cursor: pointer;
 }
 .css-egzwes {
   margin-right: 28px;
@@ -734,6 +757,19 @@ a {
 .css-yyszln > .MuiGrid-item {
   padding-top: 38px;
 }
+.css-ip1zrc {
+  border-radius: 6px;
+  text-align: center;
+  color: rgb(230, 230, 230);
+  cursor: pointer;
+  height: 36px;
+  margin: 0px auto;
+  border: none;
+  font-size: 16px;
+  font-weight: 300;
+  width: 312px;
+  background: rgb(30, 30, 30);
+}
 .css-17ciadl {
   transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
@@ -879,19 +915,7 @@ a {
   overflow: hidden auto;
   width: 100%;
 }
-.css-1b9fiqz {
-  border-radius: 6px;
-  text-align: center;
-  color: rgb(230, 230, 230);
-  cursor: pointer;
-  height: 36px;
-  margin: 0px auto;
-  border: none;
-  font-size: 16px;
-  font-weight: 300;
-  width: 312px;
-  background: rgba(236, 97, 38, 0.3) !important;
-}
+
 .css-1b9fiqz {
   border-radius: 6px;
   text-align: center;
