@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
+
+
 const AssetAllocationPage = () : JSX.Element => {
   // 로딩 화면을 처리하기 위한 state
   const [isLoading, setLoading] = useState(false);
@@ -46,9 +48,6 @@ const AssetAllocationPage = () : JSX.Element => {
   const korean_AssetClass = ['코스닥 (코스닥)', '코스닥 인버스 (코스닥 인버스)', '코스피 (코스피)', '코스피 인버스 (코스피 인버스)', '한국10년국채 (한국10년국채)'];
   const USA_AssetClass = ['S&P500', 'S&P500인버스', '금', '나스닥', '나스닥 인버스', '미국10년국채', '미국2년국채', '미국30년국채', '미국단기채', '원자재', '전세계 주식'];
   const strategy_AssetClass = ['신마법 공식', '무작정따라하기_정상가치(소형주)', '무작정따라하기_성장가치(소형주, 미국)', '강환국_울트라전략', '켄피셔_대형주전략(미국)', '소형주 10팩터(성장가치+시총+종가)', '한,미 롱숏 영구포트폴리오', '퀀터스 베타 중립 전략', '소형주70-인버스30 전략(백테스트)', '소형주70-인버스30 전략(실전투자)'];
-  const saveAlleInputData = (inputData, key)=> {
-    localStorage.setItem(key, JSON.stringify());
-  }
   const resetAllInputData = () => {
     setAssetDiv([]);
     setAllocationInputValue('전략배분 (정적자산배분)');
@@ -217,7 +216,7 @@ const AssetAllocationPage = () : JSX.Element => {
                         <div style={{width : '100%', height : '100%' , overflowY: 'auto'}} onScroll={handleScroll} >
                         
                         {AssetSimulationInvestment(assetTypeInputValue).map((item, index) => (
-    <div style={{position : 'relative', left : '0px', top : '0px', height : '48px', width : '100%'}} key={index} onClick={()=> {changeInputValue('assetClass', index)}}>
+    <div style={{position : 'relative', left : '0px', top : '0px', height : '48px', width : '100%'}} key={index}>
       <div id={`자산 ${index}option`} className='css-v47cll'>
         <input  id={`자산 ${index}option`} type="text" readOnly className='css-kfyu6' autoComplete='off' value={item} />
       </div>
